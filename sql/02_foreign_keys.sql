@@ -4,7 +4,6 @@
 -- Run AFTER 01_schema.sql. Safe to re-run manually only if the
 -- constraint does not exist yet (install.php checks first).
 -- =============================================================
-
 ALTER TABLE movements
     ADD CONSTRAINT fk_movements_product
     FOREIGN KEY (product_id) REFERENCES products(product_id)
@@ -24,3 +23,8 @@ ALTER TABLE notifications
     ADD CONSTRAINT fk_notifications_product
     FOREIGN KEY (product_id) REFERENCES products(product_id)
     ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE otps
+    ADD CONSTRAINT fk_otps_user
+    FOREIGN KEY (email) REFERENCES users(email)
+    ON DELETE CASCADE ON UPDATE CASCADE;
