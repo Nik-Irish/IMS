@@ -121,7 +121,7 @@ defined('LOGIN_CONTROLLER') || exit;
                 } else {
 
                     $errorMessage =
-                        'Could not send the email. Please check your SMTP settings.';
+                        'Could not send the email. Please try again later.';
                 }
             }
         }
