@@ -5,6 +5,13 @@
  * Requires: $products (array)
  */
 $dashboardScript = $dashboardScript ?? 'dashboard.php';
+$existingCustomers = [];
+foreach ($customers ?? [] as $customer) {
+    $existingCustomers[] = [
+        'name' => (string)($customer['customer_name'] ?? ''),
+        'phone' => (string)($customer['customer_phone'] ?? ''),
+    ];
+}
 ?>
 <div class="form-card">
     <h2>Record Sale</h2>
@@ -21,9 +28,11 @@ $dashboardScript = $dashboardScript ?? 'dashboard.php';
             <div class="form-grid">
                 <div class="form-group">
                     <label>Customer Name <span class="req">*</span></label>
-                    <input type="text" name="customer_name"
-                           value="<?php echo htmlspecialchars($_POST['customer_name'] ?? ''); ?>"
-                    >
+                    <div class="customer-select-wrap">
+                        <input type="text" id="customer_name" name="customer_name" class="customer-select-input" autocomplete="off"
+                               value="<?php echo htmlspecialchars($_POST['customer_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                        <div class="pid-list" id="customerList"></div>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -96,11 +105,78 @@ $dashboardScript = $dashboardScript ?? 'dashboard.php';
         </form>
 
         <script>
+        const existingCustomers = <?php
+            echo json_encode($existingCustomers, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+        ?>;
+
         (function () {
             var sel   = document.getElementById('product_id');
             var upEl  = document.getElementById('unit_price');
             var qEl   = document.getElementById('quantity');
             var prev  = document.getElementById('tax-preview');
+            var customerName = document.getElementById('customer_name');
+            var customerList = document.getElementById('customerList');
+            var customerPhone = document.querySelector('[name="customer_phone"]');
+            var selectedCustomerName = null;
+
+            function closeCustomerList() {
+                customerList.style.display = 'none';
+            }
+
+            function renderCustomerList() {
+                var query = customerName.value.trim().toLowerCase();
+                var matches = existingCustomers.filter(function (customer) {
+                    return !query || customer.name.toLowerCase().includes(query);
+                });
+
+                customerList.innerHTML = '';
+                if (!matches.length) {
+                    closeCustomerList();
+                    return;
+                }
+
+                matches.forEach(function (customer) {
+                    var button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'pid-item';
+
+                    var name = document.createElement('span');
+                    name.className = 'pid-code';
+                    name.textContent = customer.name;
+                    button.appendChild(name);
+
+                    if (customer.phone) {
+                        var phone = document.createElement('span');
+                        phone.className = 'pid-meta';
+                        phone.textContent = customer.phone;
+                        button.appendChild(phone);
+                    }
+
+                    button.addEventListener('mousedown', function (event) {
+                        event.preventDefault();
+                        customerName.value = customer.name;
+                        customerPhone.value = customer.phone;
+                        selectedCustomerName = customer.name;
+                        closeCustomerList();
+                    });
+                    customerList.appendChild(button);
+                });
+                customerList.style.display = 'block';
+            }
+
+            customerName.addEventListener('focus', renderCustomerList);
+            customerName.addEventListener('input', function () {
+                if (selectedCustomerName !== null && customerName.value !== selectedCustomerName) {
+                    customerPhone.value = '';
+                    selectedCustomerName = null;
+                }
+                renderCustomerList();
+            });
+            document.addEventListener('click', function (event) {
+                if (!event.target.closest('.customer-select-wrap')) {
+                    closeCustomerList();
+                }
+            });
 
             function fmt(n) {
                 return 'Rs.' + parseFloat(n).toFixed(2);

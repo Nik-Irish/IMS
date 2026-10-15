@@ -33,9 +33,6 @@ $filtered = $filtered ?? [];
 </div>
 
 <!-- Toolbar -->
-<!-- View-specific styles (products list) -->
-<link rel="stylesheet" href="css/products.css">
-
 <div class="toolbar">
     <form class="search-form" method="GET" action="dashboard.php">
         <input type="hidden" name="view" value="list">

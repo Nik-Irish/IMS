@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'sale'
     $sales = $salesStmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+$customers = $view === 'sale_add' ? getCustomers($pdo) : [];
+
 $pageTitles = [
     'list' => 'Dashboard',
     'sale_add' => 'Record Sale',

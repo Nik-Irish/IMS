@@ -73,7 +73,7 @@ $reportCategory = $reportCategory ?? '';
                 <tr>
                     <td><code><?php echo htmlspecialchars($s['bill_no']); ?></code></td>
                     <td><?php echo htmlspecialchars($s['product_name']); ?></td>
-                    <td><?php echo htmlspecialchars($s['product_sku']); ?></td>
+                    <td><?php echo htmlspecialchars($s['product_id'] ?? ''); ?></td>
                     <td><?php echo (int)$s['quantity']; ?></td>
                     <td>Rs.<?php echo number_format((float)$s['unit_price'], 2); ?></td>
                     <td>Rs.<?php echo number_format((float)$s['total'], 2); ?></td>

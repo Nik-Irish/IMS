@@ -56,7 +56,7 @@
                 <?php if ($isEditing): ?>
                     <!-- ── Inline edit row ── -->
                     <tr class="editing-row">
-                        <td><?php echo $sid; ?></td>
+                        <td><?php echo (int)$st['staff_number']; ?></td>
                         <td colspan="3">
                             <form method="POST" action="dashboard.php?view=staff"
                                   class="inline-edit-form">
@@ -88,7 +88,7 @@
                 <?php else: ?>
                     <!-- ── Staff row ── -->
                     <tr>
-                        <td><?php echo $sid; ?></td>
+                        <td><?php echo (int)$st['staff_number']; ?></td>
                         <td class="staff-username"><?php echo htmlspecialchars($st['username']); ?></td>
                         <td class="staff-added">
                             <?php echo !empty($st['created_at'])

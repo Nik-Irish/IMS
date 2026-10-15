@@ -13,6 +13,8 @@ require_once __DIR__ . '/dashboard/handlers.php';
 require_once __DIR__ . '/dashboard/filters.php';
 require_once __DIR__ . '/dashboard/stats.php';
 
+$customers = $view === 'sale_add' ? getCustomers($pdo) : [];
+
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/views/messages.php';
 $viewMap = [

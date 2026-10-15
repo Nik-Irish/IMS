@@ -35,8 +35,16 @@ if ($action === 'staff_create') {
         if ((int)$stmt->fetchColumn() > 0) {
             $errorMessage = 'Username already taken.';
         } else {
-            $pdo->prepare("INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'staff')")
-                ->execute([$newUser, password_hash($newPass, PASSWORD_DEFAULT)]);
+            $pdo->beginTransaction();
+            try {
+                $pdo->prepare("INSERT INTO users (username, password_hash, role) VALUES (?, ?, 'staff')")
+                    ->execute([$newUser, password_hash($newPass, PASSWORD_DEFAULT)]);
+                renumberStaff($pdo);
+                $pdo->commit();
+            } catch (Throwable $e) {
+                $pdo->rollBack();
+                throw $e;
+            }
             $successMessage = 'Staff account created.';
         }
     }
@@ -101,7 +109,15 @@ if ($action === 'staff_delete') {
     if (!$row) {
         $errorMessage = 'Staff account not found.';
     } else {
-        $pdo->prepare("DELETE FROM users WHERE id=?")->execute([$id]);
+        $pdo->beginTransaction();
+        try {
+            $pdo->prepare("DELETE FROM users WHERE id=? AND role='staff'")->execute([$id]);
+            renumberStaff($pdo);
+            $pdo->commit();
+        } catch (Throwable $e) {
+            $pdo->rollBack();
+            throw $e;
+        }
         $successMessage = 'Staff "' . $row['username'] . '" deleted.';
     }
     $view = 'staff';

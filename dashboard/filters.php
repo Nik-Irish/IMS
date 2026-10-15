@@ -68,9 +68,9 @@ foreach ($filteredSales as $s) {
     $salesTotal += (float)$s['total'];
 
     // group by the Product-ID code (NOT an int cast - codes like "B-33" would collapse to 0)
-    $pid = (string)($s['product_id'] !== null && $s['product_id'] !== '' ? $s['product_id'] : ($s['product_sku'] ?? ''));
+    $pid = (string)($s['product_id'] ?? '');
     if (!isset($salesByProduct[$pid])) {
-        $salesByProduct[$pid] = ['name' => $s['product_name'], 'product_sku' => $s['product_sku'], 'qty' => 0, 'total' => 0.0];
+        $salesByProduct[$pid] = ['name' => $s['product_name'], 'product_id' => $pid, 'qty' => 0, 'total' => 0.0];
     }
     $salesByProduct[$pid]['qty'] += (int)$s['quantity'];
     $salesByProduct[$pid]['total'] += (float)$s['total'];
@@ -79,7 +79,7 @@ foreach ($filteredSales as $s) {
     if (!isset($salesByRecorderProduct[$recorder][$pid])) {
         $salesByRecorderProduct[$recorder][$pid] = [
             'name' => $s['product_name'],
-            'product_sku' => $s['product_sku'],
+            'product_id' => $pid,
             'qty' => 0,
             'total' => 0.0,
         ];

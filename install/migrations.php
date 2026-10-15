@@ -25,6 +25,20 @@ function migrateSchema(PDO $pdo): array
         $pdo->exec($sql['users.email']);
         $messages[] = 'Added email column to users.';
     }
+    if (!columnExists($pdo, 'users', 'staff_number')) {
+        $pdo->exec($sql['users.staff_number']);
+        $messages[] = 'Added staff_number column to users.';
+    }
+    $pdo->exec("UPDATE users SET staff_number = NULL WHERE role <> 'staff'");
+    $staffIds = $pdo->query(
+        "SELECT id FROM users WHERE role = 'staff' ORDER BY id"
+    )->fetchAll(PDO::FETCH_COLUMN);
+    $updateStaffNumber = $pdo->prepare(
+        'UPDATE users SET staff_number = ? WHERE id = ? AND role = \'staff\''
+    );
+    foreach ($staffIds as $index => $staffId) {
+        $updateStaffNumber->execute([$index + 1, $staffId]);
+    }
     if (!columnExists($pdo, 'sales', 'staff_name')) {
         $pdo->exec($sql['sales.staff_name']);
         $messages[] = 'Added staff_name to sales.';
@@ -43,13 +57,6 @@ function migrateSchema(PDO $pdo): array
         $pdo->exec($sql['products.uq_product_id']);
         $messages[] = 'Added unique key on products.product_id.';
     }
-    // backfill existing rows from the product's current Product-ID where possible
-    if (!columnExists($pdo, 'sales', 'product_sku')) {
-        $pdo->exec($sql['sales.product_sku']);
-        $pdo->exec($sql['sales.product_sku_backfill']);
-        $messages[] = 'Added product_sku column to sales.';
-    }
-
     // older installs: convert numeric product references to Product-ID codes
     foreach (['movements', 'sales', 'notifications'] as $table) {
         $colType = $pdo->query(
@@ -70,6 +77,23 @@ function migrateSchema(PDO $pdo): array
         $nullability = ($table === 'movements') ? 'NOT NULL' : 'NULL';
         $pdo->exec(str_replace(['{TABLE}', '{NULLABILITY}'], [$table, $nullability], $sql['convert.modify']));
         $messages[] = "Converted $table.product_id to store Product-ID codes.";
+    }
+
+    if (columnExists($pdo, 'sales', 'product_sku')) {
+        $pdo->exec($sql['sales.product_id_from_legacy_sku']);
+
+        $skuForeignKeys = $pdo->query(
+            "SELECT DISTINCT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'sales'
+               AND COLUMN_NAME = 'product_sku' AND REFERENCED_TABLE_NAME IS NOT NULL"
+        )->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($skuForeignKeys as $foreignKey) {
+            $quotedForeignKey = str_replace('`', '``', $foreignKey);
+            $pdo->exec("ALTER TABLE sales DROP FOREIGN KEY `$quotedForeignKey`");
+        }
+
+        $pdo->exec($sql['sales.drop_product_sku']);
+        $messages[] = 'Removed duplicate sales.product_sku column; sales.product_id is retained.';
     }
 
     return $messages;

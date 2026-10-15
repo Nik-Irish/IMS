@@ -15,7 +15,7 @@ function downloadInvoicePdf(array $sale): void {
     $custName    = htmlspecialchars($sale['customer_name']  ?? 'Walk-in Customer');
     $custPhone   = htmlspecialchars($sale['customer_phone'] ?? '');
     $productName = htmlspecialchars($sale['product_name']   ?? '');
-    $productSku = htmlspecialchars($sale['product_sku']            ?? '');
+    $productId = htmlspecialchars($sale['product_id']            ?? '');
     $qty         = (int)($sale['quantity']  ?? 0);
     $unitPrice   = number_format((float)($sale['unit_price'] ?? 0), 2);
     $note        = htmlspecialchars($sale['note'] ?? '');
@@ -64,7 +64,7 @@ function downloadInvoicePdf(array $sale): void {
         <th class="right">Amt</th>
     </tr>
     <tr>
-        <td><?php echo $productName; ?><br><span class="small"><?php echo $productSku; ?></span></td>
+        <td><?php echo $productName; ?><br><span class="small"><?php echo $productId; ?></span></td>
         <td class="right"><?php echo $qty; ?></td>
         <td class="right">Rs.<?php echo $unitPrice; ?></td>
         <td class="right">Rs.<?php echo number_format($subtotal, 2); ?></td>

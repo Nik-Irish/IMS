@@ -63,12 +63,11 @@ function recordSale(
     $pdo->beginTransaction();
     try {
         $pdo->prepare(
-            "INSERT INTO sales (bill_no, product_id, product_name, product_sku, category, quantity, unit_price, total, customer_name, customer_phone, note, sale_date, staff_name)
-             VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO sales (bill_no, product_id, product_name, category, quantity, unit_price, total, customer_name, customer_phone, note, sale_date, staff_name)
+             VALUES ('', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         )->execute([
             $product['product_id'],
             $product['name'],
-            $product['product_id'],
             $product['category'] ?? 'General',
             $quantity,
             $unitPrice,

@@ -11,11 +11,13 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(150) NULL,
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('admin','staff') NOT NULL DEFAULT 'staff',
+    staff_number INT UNSIGNED NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uq_users_username (username),
-    UNIQUE KEY uq_users_email (email)
+    UNIQUE KEY uq_users_email (email),
+    KEY idx_users_staff_number (staff_number)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS products (
@@ -49,7 +51,6 @@ CREATE TABLE IF NOT EXISTS sales (
     bill_no VARCHAR(30) NOT NULL,
     product_id VARCHAR(50) NULL COMMENT 'Product ID code (products.product_id)',
     product_name VARCHAR(150) NOT NULL,
-    product_sku VARCHAR(50) NOT NULL COMMENT 'Product ID',
     category VARCHAR(80) NOT NULL DEFAULT 'General',
     quantity INT UNSIGNED NOT NULL,
     unit_price DECIMAL(12,2) NOT NULL COMMENT 'Rs.',

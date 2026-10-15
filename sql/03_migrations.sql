@@ -13,6 +13,9 @@ ALTER TABLE users ADD COLUMN role ENUM('admin','staff') NOT NULL DEFAULT 'staff'
 -- [users.email]
 ALTER TABLE users ADD COLUMN email VARCHAR(150) NULL AFTER username, ADD UNIQUE KEY uq_users_email (email);
 
+-- [users.staff_number]
+ALTER TABLE users ADD COLUMN staff_number INT UNSIGNED NULL AFTER role, ADD KEY idx_users_staff_number (staff_number);
+
 -- [sales.staff_name]
 ALTER TABLE sales ADD COLUMN staff_name VARCHAR(100) NULL AFTER sale_date;
 
@@ -28,11 +31,14 @@ UPDATE products SET product_id = CONCAT('P', id) WHERE product_id = '';
 -- [products.uq_product_id]
 ALTER TABLE products ADD UNIQUE KEY uq_products_product_id (product_id);
 
--- [sales.product_sku]
-ALTER TABLE sales ADD COLUMN product_sku VARCHAR(50) NOT NULL COMMENT 'Product ID' AFTER product_name;
+-- [sales.product_id_from_legacy_sku]
+UPDATE sales s
+JOIN products p ON p.product_id = s.product_sku
+SET s.product_id = p.product_id
+WHERE (s.product_id IS NULL OR s.product_id = '') AND s.product_sku <> '';
 
--- [sales.product_sku_backfill]
-UPDATE sales s LEFT JOIN products p ON s.product_id = p.id SET s.product_sku = COALESCE(p.product_id, '') WHERE s.product_sku = '';
+-- [sales.drop_product_sku]
+ALTER TABLE sales DROP COLUMN product_sku;
 
 -- [convert.drop_fk]
 ALTER TABLE `{TABLE}` DROP FOREIGN KEY `{FK}`;

@@ -24,9 +24,13 @@
   text-decoration: underline;
 }
 
-/* --- Add Product: Product-ID suggestions (views/add_product.php) --- */
+/* --- Product and customer autocomplete lists --- */
 
 .pid-wrap {
+  position: relative;
+}
+
+.customer-select-wrap {
   position: relative;
 }
 

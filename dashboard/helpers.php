@@ -29,10 +29,37 @@ function getSale($pdo, $id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getCustomers(PDO $pdo): array {
+    return $pdo->query(
+        "SELECT s.customer_name, s.customer_phone
+         FROM sales s
+         INNER JOIN (
+             SELECT customer_name, MAX(id) AS latest_sale_id
+             FROM sales
+             WHERE customer_name <> '' AND customer_name <> 'Walk-in Customer'
+             GROUP BY customer_name
+         ) latest ON latest.latest_sale_id = s.id
+         ORDER BY s.customer_name"
+    )->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getStaff($pdo, $id) {
     $stmt = $pdo->prepare("SELECT id, username FROM users WHERE id=? AND role='staff'");
     $stmt->execute([$id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function renumberStaff(PDO $pdo): void {
+    $staffIds = $pdo->query(
+        "SELECT id FROM users WHERE role = 'staff' ORDER BY id"
+    )->fetchAll(PDO::FETCH_COLUMN);
+    $update = $pdo->prepare(
+        "UPDATE users SET staff_number = ? WHERE id = ? AND role = 'staff'"
+    );
+
+    foreach ($staffIds as $index => $staffId) {
+        $update->execute([$index + 1, $staffId]);
+    }
 }
 
 function loadLists($pdo) {
@@ -40,6 +67,6 @@ function loadLists($pdo) {
         $pdo->query("SELECT * FROM products ORDER BY id")->fetchAll(PDO::FETCH_ASSOC),
         $pdo->query("SELECT * FROM sales ORDER BY sale_date DESC, created_at DESC")->fetchAll(PDO::FETCH_ASSOC),
         $pdo->query("SELECT * FROM notifications ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC),
-        $pdo->query("SELECT id, username, created_at FROM users WHERE role='staff' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC),
+        $pdo->query("SELECT id, staff_number, username, created_at FROM users WHERE role='staff' ORDER BY id")->fetchAll(PDO::FETCH_ASSOC),
     ];
 }

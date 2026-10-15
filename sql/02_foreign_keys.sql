@@ -14,11 +14,6 @@ ALTER TABLE sales
     FOREIGN KEY (product_id) REFERENCES products(product_id)
     ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE sales
-    ADD CONSTRAINT fk_sales_sku
-    FOREIGN KEY (product_sku) REFERENCES products(product_id)
-    ON DELETE RESTRICT ON UPDATE CASCADE;
-
 ALTER TABLE notifications
     ADD CONSTRAINT fk_notifications_product
     FOREIGN KEY (product_id) REFERENCES products(product_id)

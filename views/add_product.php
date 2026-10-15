@@ -2,20 +2,18 @@
 /**
  * views/add_product.php - Add a new product
  *
- * Requires: $products (existing product list, for Product-ID suggestions)
+ * Requires: $products (existing products, for Product Name suggestions)
  */
 $existingProducts = [];
-foreach ($products ?? [] as $p) {
+foreach ($products ?? [] as $product) {
     $existingProducts[] = [
-        'code'     => (string)($p['product_id'] ?? ''),
-        'name'     => (string)($p['name'] ?? ''),
-        'category' => (string)($p['category'] ?? ''),
-        'price'    => (float)($p['price'] ?? 0),
+        'name' => (string)($product['name'] ?? ''),
+        'code' => (string)($product['product_id'] ?? ''),
+        'category' => (string)($product['category'] ?? ''),
+        'price' => (float)($product['price'] ?? 0),
     ];
 }
 ?>
-<link rel="stylesheet" href="css/products.css">
-
 <div class="form-card">
     <h2>New Product</h2>
     <p class="form-hint">New Product-ID creates a product. An existing one adds stock to it instead.</p>
@@ -26,17 +24,17 @@ foreach ($products ?? [] as $p) {
         <div class="form-grid">
             <div class="form-group">
                 <label>Product Name <span class="req">*</span></label>
-                <input type="text" name="name" id="f_name" required
-                       value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
+                <div class="pid-wrap">
+                    <input type="text" name="name" id="f_name" autocomplete="off" required
+                           value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
+                    <div class="pid-list" id="productNameList"></div>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Product-ID <span class="req">*</span></label>
-                <div class="pid-wrap">
-                    <input type="text" name="product_id" id="f_product_id" autocomplete="off"
-                           value="<?php echo htmlspecialchars($_POST['product_id'] ?? ''); ?>">
-                    <div class="pid-list" id="pidList"></div>
-                </div>
+                <input type="text" name="product_id" id="f_product_id"
+                       value="<?php echo htmlspecialchars($_POST['product_id'] ?? ''); ?>">
             </div>
 
             <div class="form-group">
@@ -77,71 +75,94 @@ const existingProducts = <?php
     echo json_encode($existingProducts, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 ?>;
 
-const pidInput = document.getElementById('f_product_id');
-const pidList  = document.getElementById('pidList');
+const productNameInput = document.getElementById('f_name');
+const productNameList = document.getElementById('productNameList');
+const productIdInput = document.getElementById('f_product_id');
+const categoryInput = document.getElementById('f_category');
+const priceInput = document.getElementById('f_price');
+let autoFilledProduct = null;
 
-function findByCode(code) {
-    const c = code.trim().toLowerCase();
-    return existingProducts.find(p => p.code.toLowerCase() === c) || null;
+function findProductByName(name) {
+    const query = name.trim().toLowerCase();
+    return existingProducts.find(product => product.name.toLowerCase() === query) || null;
 }
 
-function closePidList() {
-    pidList.style.display = 'none';
+function closeProductNameList() {
+    productNameList.style.display = 'none';
 }
 
-function renderPidList() {
-    const q = pidInput.value.trim().toLowerCase();
-    const matches = existingProducts.filter(p =>
-        !q || p.code.toLowerCase().includes(q) || p.name.toLowerCase().includes(q));
+function fillFromProduct(product) {
+    productNameInput.value = product.name;
+    productIdInput.value = product.code;
+    categoryInput.value = product.category;
+    priceInput.value = Number(product.price).toFixed(2);
+    autoFilledProduct = {
+        code: productIdInput.value,
+        category: categoryInput.value,
+        price: priceInput.value,
+    };
+}
 
-    pidList.innerHTML = '';
-    if (!matches.length) {
-        closePidList();
+function clearAutoFilledFields() {
+    if (!autoFilledProduct) {
         return;
     }
-    matches.forEach(p => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'pid-item';
+    if (productIdInput.value === autoFilledProduct.code) productIdInput.value = '';
+    if (categoryInput.value === autoFilledProduct.category) categoryInput.value = '';
+    if (priceInput.value === autoFilledProduct.price) priceInput.value = '';
+    autoFilledProduct = null;
+}
 
-        const code = document.createElement('span');
-        code.className = 'pid-code';
-        code.textContent = p.code;
-        btn.appendChild(code);
+function renderProductNameList() {
+    const query = productNameInput.value.trim().toLowerCase();
+    const matches = existingProducts.filter(product =>
+        !query || product.name.toLowerCase().includes(query));
 
-        const meta = document.createElement('span');
-        meta.className = 'pid-meta';
-        meta.textContent = p.name + ' · ' + (p.category || 'General') + ' · Rs. ' + Number(p.price).toFixed(2);
-        btn.appendChild(meta);
+    productNameList.innerHTML = '';
+    if (!matches.length) {
+        closeProductNameList();
+        return;
+    }
 
-        // mousedown fires before the input's blur, so the click always lands
-        btn.addEventListener('mousedown', e => {
-            e.preventDefault();
-            pidInput.value = p.code;
-            fillFromProduct(p);
-            closePidList();
+    matches.forEach(product => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pid-item';
+
+        const name = document.createElement('span');
+        name.className = 'pid-code';
+        name.textContent = product.name;
+        button.appendChild(name);
+
+        const details = document.createElement('span');
+        details.className = 'pid-meta';
+        details.textContent = product.code + ' · ' + (product.category || 'General')
+            + ' · Rs. ' + Number(product.price).toFixed(2);
+        button.appendChild(details);
+
+        button.addEventListener('mousedown', event => {
+            event.preventDefault();
+            fillFromProduct(product);
+            closeProductNameList();
         });
-        pidList.appendChild(btn);
+        productNameList.appendChild(button);
     });
-    pidList.style.display = 'block';
+    productNameList.style.display = 'block';
 }
 
-// typing an exact Product-ID auto-fills name, category, and price from the DB
-function fillFromProduct(p) {
-    document.getElementById('f_name').value = p.name;
-    document.getElementById('f_category').value = p.category;
-    document.getElementById('f_price').value = Number(p.price).toFixed(2);
-}
-
-pidInput.addEventListener('focus', renderPidList);
-pidInput.addEventListener('input', () => {
-    renderPidList();
-    const p = findByCode(pidInput.value);
-    if (p) {
-        fillFromProduct(p);
+productNameInput.addEventListener('focus', renderProductNameList);
+productNameInput.addEventListener('input', () => {
+    renderProductNameList();
+    const product = findProductByName(productNameInput.value);
+    if (product) {
+        fillFromProduct(product);
+        closeProductNameList();
+    } else {
+        clearAutoFilledFields();
     }
 });
-document.addEventListener('click', e => {
-    if (!e.target.closest('.pid-wrap')) closePidList();
+
+document.addEventListener('click', event => {
+    if (!event.target.closest('.pid-wrap')) closeProductNameList();
 });
 </script>

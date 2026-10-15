@@ -18,6 +18,7 @@ $unreadNotifications = $unreadNotifications ?? 0;
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/products.css?v=3">
 </head>
 <body>
 <div class="app">
