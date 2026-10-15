@@ -1,43 +1,27 @@
 <?php
-
-require_once __DIR__ . '/../lib/PHPMailer/Exception.php';
-require_once __DIR__ . '/../lib/PHPMailer/PHPMailer.php';
-require_once __DIR__ . '/../lib/PHPMailer/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+/**
+ * Send OTP email using native PHP mail() function
+ * 
+ * @param string $email Recipient email address
+ * @param string|int $otp OTP code to send
+ * @return bool True on success, false on failure
+ */
 function sendOtpMail($email, $otp)
 {
-    $mail = new PHPMailer(true);
+    // Admin sender configuration
+    $fromEmail = 'nikrishdulal01@gmail.com';
+    $fromName = 'IMS Nepal';
+    $subject = 'IMS Nepal - Password Reset OTP';
 
-    try {
-        $mail->isSMTP();
+    // Sanitize OTP for HTML output
+    $safeOtp = htmlspecialchars(
+        (string)$otp,
+        ENT_QUOTES,
+        'UTF-8'
+    );
 
-        $mail->Host = 'smtp.gmail.com';
-
-        $mail->SMTPAuth = true;
-        $mail->Username = 'nikrishdulal01@gmail.com';
-        $mail->Password = 'smbafhafuuyblbir';
-        $mail->SMTPSecure =
-            PHPMailer::ENCRYPTION_STARTTLS;
-
-        $mail->Port = 587;
-        $mail->Timeout = 20;
-        $mail->setFrom(
-            'nikrishdulal01@gmail.com',
-            'IMS Nepal'
-        );
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject =
-            'IMS Nepal - Password Reset OTP';
-        $safeOtp = htmlspecialchars(
-            (string)$otp,
-            ENT_QUOTES,
-            'UTF-8'
-        );
-
-        $mail->Body = '
+    // HTML email body - kept exactly as original
+    $htmlBody = '
             <div style="
                 font-family: Arial, sans-serif;
                 max-width: 500px;
@@ -90,20 +74,52 @@ function sendOtpMail($email, $otp)
 
             </div>
         ';
-        $mail->AltBody =
-            "IMS Nepal\n\n" .
-            "Your password reset OTP is: " .
-            $otp .
-            "\n\n" .
-            "This OTP is valid for 2 minutes.";
-        $mail->send();
 
+    // Plain text alternative body - kept exactly as original
+    $textBody = "IMS Nepal\n\n" .
+                "Your password reset OTP is: " .
+                $otp .
+                "\n\n" .
+                "This OTP is valid for 2 minutes.";
+
+    // Build headers for multipart email (HTML + plain text)
+    $boundary = '----=_Part_' . md5(uniqid(rand(), true)) . '_' . time();
+    
+    $headers = [];
+    $headers[] = 'From: ' . $fromName . ' <' . $fromEmail . '>';
+    $headers[] = 'Reply-To: ' . $fromEmail;
+    $headers[] = 'MIME-Version: 1.0';
+    $headers[] = 'Content-Type: multipart/alternative; boundary="' . $boundary . '"';
+    $headers[] = 'X-Mailer: PHP/' . phpversion();
+
+    // Build multipart message body
+    $message = '--' . $boundary . "\r\n";
+    $message .= 'Content-Type: text/plain; charset=UTF-8' . "\r\n";
+    $message .= 'Content-Transfer-Encoding: 8bit' . "\r\n\r\n";
+    $message .= $textBody . "\r\n\r\n";
+    
+    $message .= '--' . $boundary . "\r\n";
+    $message .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+    $message .= 'Content-Transfer-Encoding: 8bit' . "\r\n\r\n";
+    $message .= $htmlBody . "\r\n\r\n";
+    
+    $message .= '--' . $boundary . '--';
+
+    // Send email using native mail() function
+    // The -f flag sets the envelope sender (return-path)
+    $additionalParams = '-f' . $fromEmail;
+    
+    try {
+        $result = mail($email, $subject, $message, implode("\r\n", $headers), $additionalParams);
+        
+        if (!$result) {
+            error_log('PHP mail() Error: Failed to send OTP email to ' . $email);
+            return false;
+        }
+        
         return true;
     } catch (Exception $e) {
-        error_log(
-            'PHPMailer Error: ' .
-            $mail->ErrorInfo
-        );
+        error_log('PHP mail() Exception: ' . $e->getMessage());
         return false;
     }
 }
