@@ -16,7 +16,6 @@ foreach ($customers ?? [] as $customer) {
 <div class="form-card sale-entry-card">
     <div class="sale-card-heading">
         <h2>Sale details</h2>
-        <span>Required fields are marked with <span class="req">*</span></span>
     </div>
 
     <?php if (empty($products)): ?>
