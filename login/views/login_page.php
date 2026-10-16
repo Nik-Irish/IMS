@@ -51,7 +51,7 @@ $pageTitle =
 
     <link
         rel="stylesheet"
-        href="css/login.css"
+        href="css/login.css?v=3"
     >
 
 </head>

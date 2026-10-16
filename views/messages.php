@@ -35,21 +35,26 @@ $showAlerts = $showAlerts ?? false;
 <?php endif; ?>
 
 <!-- View-specific styles (alert banner) -->
-<link rel="stylesheet" href="css/banner.css">
+<link rel="stylesheet" href="css/banner.css?v=2">
 
 <?php if (!empty($bannerNotes) && $showAlerts && $view !== 'notifications'): ?>
-    <div class="notif-banner">
+    <div class="notif-banner <?php echo in_array('low_stock', array_column($bannerNotes, 'type'), true) ? 'notif-banner-low-stock' : ''; ?>">
         <div class="notif-banner-title">
-            <?php echo $unreadNotifications; ?> <?php echo $unreadNotifications === 1 ? 'Alert Needs' : 'Alerts Need'; ?> Action
+            <span class="notif-banner-count"><?php echo $unreadNotifications; ?></span>
+            <span><?php echo $unreadNotifications === 1 ? 'Alert needs' : 'Alerts need'; ?> attention</span>
             <a href="dashboard.php?view=notifications">View All Alerts</a>
         </div>
         <ul class="notif-banner-list">
             <?php foreach ($bannerNotes as $bn): ?>
-                <li class="type-<?php echo htmlspecialchars($bn['type'] ?? 'info'); ?>">
-                    <strong><?php echo htmlspecialchars($bn['title'] ?? 'Alert'); ?>:</strong>
-                    <?php echo htmlspecialchars($bn['message'] ?? ''); ?>
+                <?php $isLowStock = ($bn['type'] ?? '') === 'low_stock'; ?>
+                <li class="<?php echo $isLowStock ? 'notif-low-stock' : ''; ?>">
+                    <span class="notif-item-mark" aria-hidden="true"><?php echo $isLowStock ? '!' : 'i'; ?></span>
+                    <span class="notif-item-copy">
+                        <strong><?php echo htmlspecialchars($bn['title'] ?? 'Alert'); ?></strong>
+                        <span><?php echo htmlspecialchars($bn['message'] ?? ''); ?></span>
+                    </span>
                     <?php if (!empty($bn['product_id'])): ?>
-                        <a href="dashboard.php?view=inventory&id=<?php echo urlencode($bn['product_id']); ?>">View Product</a>
+                        <a class="notif-product-link" href="dashboard.php?view=inventory&amp;id=<?php echo urlencode($bn['product_id']); ?>">View product</a>
                     <?php endif; ?>
                 </li>
             <?php endforeach; ?>

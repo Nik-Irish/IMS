@@ -5,11 +5,14 @@
  * Requires: $staffUsers (array), $editStaff (array|null)
  */
 ?>
-<link rel="stylesheet" href="css/staff.css">
+<link rel="stylesheet" href="css/staff.css?v=5">
 
+<div class="staff-management">
 <!-- ═══════ Add Staff ═══════ -->
 <div class="form-card add-staff-card">
-    <h2>Add Staff User</h2>
+    <div class="staff-card-heading">
+        <h2>Add Staff User</h2>
+    </div>
     <p class="form-hint">
         Username: 3-15 letters and numbers.
         Password: 8+ characters with uppercase, lowercase, number, and symbol.
@@ -36,9 +39,21 @@
 </div>
 
 <!-- ═══════ Staff list ═══════ -->
-<div class="table-wrap">
+<section class="table-wrap staff-directory">
+    <div class="staff-directory-heading">
+        <div>
+            <h2>Staff accounts</h2>
+        </div>
+        <span class="staff-count">
+            <?php echo count($staffUsers); ?>
+            <span><?php echo count($staffUsers) === 1 ? 'account' : 'accounts'; ?></span>
+        </span>
+    </div>
     <?php if (empty($staffUsers)): ?>
-        <div class="empty-state"><p>No staff accounts yet. Add one above.</p></div>
+        <div class="empty-state staff-empty-state">
+            <p>No staff accounts yet.</p>
+            <span>Add a staff account using the form above.</span>
+        </div>
     <?php else: ?>
         <table class="data-table staff-table">
             <thead>
@@ -88,8 +103,10 @@
                 <?php else: ?>
                     <!-- ── Staff row ── -->
                     <tr>
-                        <td><?php echo (int)$st['staff_number']; ?></td>
-                        <td class="staff-username"><?php echo htmlspecialchars($st['username']); ?></td>
+                        <td><span class="staff-number"><?php echo (int)$st['staff_number']; ?></span></td>
+                        <td class="staff-username">
+                            <?php echo htmlspecialchars($st['username']); ?>
+                        </td>
                         <td class="staff-added">
                             <?php echo !empty($st['created_at'])
                                 ? htmlspecialchars(date('Y-m-d', strtotime($st['created_at'])))
@@ -144,6 +161,7 @@
             </tbody>
         </table>
     <?php endif; ?>
+</section>
 </div>
 
 <!-- ═══════ Scripts: password visibility + reset-row toggle ═══════ -->

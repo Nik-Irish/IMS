@@ -52,7 +52,7 @@ if (empty($detailProduct)) {
 <!-- Description -->
 <?php if (!empty($detailProduct['description'])): ?>
     <div class="form-card" style="margin-bottom:1rem;">
-        <p style="color:#cbd5e1;font-size:.9rem;line-height:1.6;">
+        <p style="color:var(--fg);font-size:.9rem;line-height:1.6;">
             <?php echo htmlspecialchars($detailProduct['description']); ?>
         </p>
     </div>

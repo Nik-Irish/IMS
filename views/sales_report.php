@@ -14,8 +14,9 @@ $reportProductId = $reportProductId ?? '';
 $reportCategory = $reportCategory ?? '';
 ?>
 
-<div class="toolbar">
-    <form class="search-form" method="GET" action="dashboard.php">
+<div class="sales-report-page">
+<div class="toolbar sales-filter-toolbar">
+    <form class="search-form sales-filter-form" method="GET" action="dashboard.php">
         <input type="hidden" name="view" value="sales">
 
         <select name="product_id">
@@ -46,7 +47,7 @@ $reportCategory = $reportCategory ?? '';
     </form>
 </div>
 
-<div class="table-wrap">
+<div class="table-wrap sales-report-table">
     <?php if (empty($filteredSales)): ?>
         <div class="empty-state">
             <p>No sales match these filters.</p>
@@ -89,4 +90,5 @@ $reportCategory = $reportCategory ?? '';
             </tbody>
         </table>
     <?php endif; ?>
+</div>
 </div>

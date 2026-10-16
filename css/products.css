@@ -1,26 +1,26 @@
 /* IMS Nepal - Products list view (dashboard.php?view=list) - loaded by views/products.php */
 
 .btn-info {
-  color: #a5b4fc;
-  background: rgba(99, 102, 241, 0.2);
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #286B9C;
+  background: #EAF4FA;
+  border: 1px solid #C9E1EF;
 }
 .btn-info:hover {
-  background: rgba(99, 102, 241, 0.35);
+  background: #DCECF5;
 }
 
 .cell-desc {
   font-size: 0.7rem;
-  color: #71717A;
+  color: var(--fg-muted, #667085);
   margin-top: 0.15rem;
 }
 
 .link-name {
-  color: #FAFAFA;
+  color: var(--fg, #263238);
   text-decoration: none;
 }
 .link-name:hover {
-  color: var(--accent, #6366F1);
+  color: var(--accent, #3978B8);
   text-decoration: underline;
 }
 
@@ -43,11 +43,11 @@
   z-index: 30;
   max-height: 220px;
   overflow-y: auto;
-  background: #18181B;
-  border: 1px solid rgba(250, 250, 250, 0.35);
+  background: var(--surface, #FFFFFF);
+  border: 1px solid var(--border, #E2E8F0);
   border-radius: 8px;
   margin-top: 4px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
 }
 
 .pid-item {
@@ -57,8 +57,8 @@
   padding: 0.5rem 0.75rem;
   background: none;
   border: none;
-  border-bottom: 1px solid rgba(250, 250, 250, 0.15);
-  color: #FAFAFA;
+  border-bottom: 1px solid var(--border, #E2E8F0);
+  color: var(--fg, #263238);
   font: inherit;
   font-size: 0.8rem;
   cursor: pointer;
@@ -67,17 +67,17 @@
   border-bottom: none;
 }
 .pid-item:hover {
-  background: rgba(99, 102, 241, 0.25);
+  background: #EFF7FB;
 }
 
 .pid-code {
   font-weight: 600;
-  color: #a5b4fc;
+  color: #286B9C;
 }
 
 .pid-meta {
   display: block;
   font-size: 0.72rem;
-  color: #A1A1AA;
+  color: var(--fg-muted, #667085);
   margin-top: 2px;
 }

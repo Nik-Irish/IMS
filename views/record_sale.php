@@ -13,8 +13,11 @@ foreach ($customers ?? [] as $customer) {
     ];
 }
 ?>
-<div class="form-card">
-    <h2>Record Sale</h2>
+<div class="form-card sale-entry-card">
+    <div class="sale-card-heading">
+        <h2>Sale details</h2>
+        <span>Required fields are marked with <span class="req">*</span></span>
+    </div>
 
     <?php if (empty($products)): ?>
         <div class="empty-state">
@@ -88,9 +91,8 @@ foreach ($customers ?? [] as $customer) {
 
             <!-- Live VAT preview -->
             <div id="tax-preview"
-                 style="background:rgba(30,41,59,.6);border:1px solid #334155;
-                        border-radius:8px;padding:.8rem 1rem;
-                        margin:.5rem 0 1rem;font-size:.88rem;display:none;">
+                 class="sale-tax-preview"
+                 style="display:none;">
                 <span>Subtotal: <strong id="prev-sub">Rs.0.00</strong></span>
                 &nbsp;|&nbsp;
                 <span>VAT 13%: <strong id="prev-tax">Rs.0.00</strong></span>
@@ -192,7 +194,7 @@ foreach ($customers ?? [] as $customer) {
                     document.getElementById('prev-sub').textContent   = fmt(sub);
                     document.getElementById('prev-tax').textContent   = fmt(tax);
                     document.getElementById('prev-total').textContent = fmt(tot);
-                    prev.style.display = 'block';
+                    prev.style.display = 'flex';
                 } else {
                     prev.style.display = 'none';
                 }

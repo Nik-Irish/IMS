@@ -21,6 +21,18 @@ if (!defined('DASHBOARD_CONTROLLER')) {
     exit('Direct access not allowed.');
 }
 
+function productNumberError(string $price, string $quantity): ?string
+{
+    if (!is_numeric($price) || (float)$price < 0) {
+        return 'Price must be a valid positive number.';
+    }
+    if (!preg_match('/^\d+$/', $quantity)) {
+        return 'Quantity must be a whole number.';
+    }
+
+    return null;
+}
+
 if ($action === 'add') {
     $name = trim($_POST['name'] ?? '');
     $productId = trim($_POST['product_id'] ?? '');
@@ -32,11 +44,8 @@ if ($action === 'add') {
     if ($name === '' || $productId === '' || $price === '' || $qty === '') {
         $errorMessage = 'Name, Product-ID, price, and quantity are required.';
         $view = 'add';
-    } elseif (!is_numeric($price) || (float)$price < 0) {
-        $errorMessage = 'Price must be a valid positive number.';
-        $view = 'add';
-    } elseif (!preg_match('/^\d+$/', $qty)) {
-        $errorMessage = 'Quantity must be a whole number.';
+    } elseif (($numberError = productNumberError($price, $qty)) !== null) {
+        $errorMessage = $numberError;
         $view = 'add';
     } else {
         $q = (int)$qty;
@@ -106,11 +115,8 @@ if ($action === 'update') {
     } elseif ($price === '' || $qty === '') {
         $errorMessage = 'Price and quantity are required.';
         $view = 'edit';
-    } elseif (!is_numeric($price) || (float)$price < 0) {
-        $errorMessage = 'Price must be a valid positive number.';
-        $view = 'edit';
-    } elseif (!preg_match('/^\d+$/', $qty)) {
-        $errorMessage = 'Quantity must be a whole number.';
+    } elseif (($numberError = productNumberError($price, $qty)) !== null) {
+        $errorMessage = $numberError;
         $view = 'edit';
     } else {
         $oldQty = (int)$editProduct['quantity'];

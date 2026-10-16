@@ -44,12 +44,7 @@ defined('LOGIN_CONTROLLER') || exit;
 
             $errorMessage =
                 'All fields required.';
-        } elseif (
-            !preg_match(
-                $passwordRules,
-                $newPass
-            )
-        ) {
+        } elseif (!validPassword($newPass)) {
 
             $errorMessage =
                 'Password: 8+ chars, uppercase, lowercase, number, special char.';

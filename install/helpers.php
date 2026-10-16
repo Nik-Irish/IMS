@@ -42,16 +42,30 @@ function constraintExists(PDO $pdo, string $table, string $constraint): bool
 }
 
 /**
- * Load executable statements from a .sql file in the sql/ folder.
- * Strips -- comment lines, then splits on semicolons.
+ * Read a SQL file from the sql/ folder.
  */
-function sqlStatements(string $file): array
+function readSqlFile(string $file): string
 {
     $path = __DIR__ . '/../sql/' . $file;
     if (!is_file($path)) {
         throw new RuntimeException("SQL file not found: $path");
     }
-    $lines = file($path, FILE_IGNORE_NEW_LINES) ?: [];
+
+    $content = file_get_contents($path);
+    if ($content === false) {
+        throw new RuntimeException("Unable to read SQL file: $path");
+    }
+
+    return $content;
+}
+
+/**
+ * Load executable statements from a .sql file.
+ * Strips -- comment lines, then splits on semicolons.
+ */
+function sqlStatements(string $file): array
+{
+    $lines = preg_split('/\R/', readSqlFile($file)) ?: [];
     $lines = array_values(array_filter($lines, fn ($line) => !preg_match('/^\s*--/', $line)));
     $statements = array_filter(array_map('trim', explode(';', implode("\n", $lines))));
     return array_values($statements);
@@ -64,11 +78,7 @@ function sqlStatements(string $file): array
  */
 function sqlStatementsByKey(string $file): array
 {
-    $path = __DIR__ . '/../sql/' . $file;
-    if (!is_file($path)) {
-        throw new RuntimeException("SQL file not found: $path");
-    }
-    $content = (string)file_get_contents($path);
+    $content = readSqlFile($file);
     $keys = [];
     if (preg_match_all('/--\s*\[([\w.]+)\]\s*\n(.*?);/s', $content, $matches, PREG_SET_ORDER)) {
         foreach ($matches as $match) {
@@ -80,5 +90,4 @@ function sqlStatementsByKey(string $file): array
     }
     return $keys;
 }
-
 

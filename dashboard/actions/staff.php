@@ -25,7 +25,7 @@ if ($action === 'staff_create') {
 
     if ($newUser === '' || $newPass === '') {
         $errorMessage = 'Username and password are required.';
-    } elseif (!preg_match('/^[a-zA-Z0-9]{3,15}$/', $newUser)) {
+    } elseif (!validUsername($newUser)) {
         $errorMessage = 'Username: 3-15 characters, letters and numbers only.';
     } elseif (!validPassword($newPass)) {
         $errorMessage = 'Password: 8+ chars, uppercase, lowercase, number, special character.';
@@ -60,7 +60,7 @@ if ($action === 'staff_update') {
     if (!$staff) {
         $errorMessage = 'Staff account not found.';
         $view = 'staff';
-    } elseif (!preg_match('/^[a-zA-Z0-9]{3,15}$/', $newUser)) {
+    } elseif (!validUsername($newUser)) {
         $errorMessage = 'Username: 3-15 characters, letters and numbers only.';
         $view = 'staff';
     } else {

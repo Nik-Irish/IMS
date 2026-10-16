@@ -16,6 +16,11 @@ function validPassword(string $password): bool
     return preg_match(PASSWORD_RULES, $password) === 1;
 }
 
+function validUsername(string $username): bool
+{
+    return preg_match('/^[a-zA-Z0-9]{3,15}$/', $username) === 1;
+}
+
 
 // ── Truncate long strings ─────────────────────────────────────────────────────
 function shortText(string $text, int $max = 48): string {

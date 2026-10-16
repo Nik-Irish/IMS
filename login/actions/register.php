@@ -29,12 +29,7 @@ defined('LOGIN_CONTROLLER') || exit;
             $errorMessage =
                 'All fields required.';
 
-        } elseif (
-            !preg_match(
-                '/^[a-zA-Z0-9]{3,15}$/',
-                $username
-            )
-        ) {
+        } elseif (!validUsername($username)) {
 
             $errorMessage =
                 'Username: 3-15 chars, letters & numbers.';
@@ -50,12 +45,7 @@ defined('LOGIN_CONTROLLER') || exit;
             $errorMessage =
                 'Enter a valid email address.';
 
-        } elseif (
-            !preg_match(
-                $passwordRules,
-                $password
-            )
-        ) {
+        } elseif (!validPassword($password)) {
 
             $errorMessage =
                 'Password: 8+ chars, uppercase, lowercase, number, special char.';

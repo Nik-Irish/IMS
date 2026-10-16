@@ -29,7 +29,6 @@ $mode = in_array(
 )
     ? $_GET['action']
     : 'login';
-$passwordRules = PASSWORD_RULES;
 if (
     $mode === 'forgot' &&
     isset($_GET['restart'])

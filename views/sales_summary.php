@@ -22,9 +22,10 @@ $reportProductId = $reportProductId ?? 0;
 $reportCategory = $reportCategory ?? '';
 ?>
 
+<div class="sales-summary-page">
 <!-- Filter toolbar -->
-<div class="toolbar">
-    <form class="search-form" method="GET" action="dashboard.php">
+<div class="toolbar sales-filter-toolbar">
+    <form class="search-form sales-filter-form" method="GET" action="dashboard.php">
         <input type="hidden" name="view" value="report">
 
         <select name="product_id">
@@ -53,15 +54,15 @@ $reportCategory = $reportCategory ?? '';
 
 <!-- Summary stat cards -->
 <div class="stats">
-    <div class="stat-card">
+    <div class="stat-card sales-metric-units">
         <div class="stat-label">Units Sold</div>
         <div class="stat-value"><?php echo $salesUnits; ?></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card sales-metric-revenue">
         <div class="stat-label">Revenue (incl. 13% VAT)</div>
         <div class="stat-value">Rs.<?php echo number_format($salesTotal, 2); ?></div>
     </div>
-    <div class="stat-card">
+    <div class="stat-card sales-metric-transactions">
         <div class="stat-label">Transactions</div>
         <div class="stat-value"><?php echo count($filteredSales); ?></div>
     </div>
@@ -69,7 +70,7 @@ $reportCategory = $reportCategory ?? '';
 
 <!-- By product -->
 <?php if (!empty($salesByProduct)): ?>
-    <div class="table-wrap">
+    <div class="table-wrap sales-summary-table">
         <div class="section-head">Sales by Product</div>
         <table class="data-table">
             <thead>
@@ -96,7 +97,7 @@ $reportCategory = $reportCategory ?? '';
 
 <!-- By staff/admin and product -->
 <?php if (!empty($salesByRecorderProduct)): ?>
-    <div class="table-wrap">
+    <div class="table-wrap sales-summary-table">
         <div class="section-head">Sales by Staff/Admin and Product</div>
         <table class="data-table">
             <thead>
@@ -127,7 +128,7 @@ $reportCategory = $reportCategory ?? '';
 
 <!-- By day -->
 <?php if (!empty($salesByDay)): ?>
-    <div class="table-wrap">
+    <div class="table-wrap sales-summary-table">
         <div class="section-head">Sales by Day</div>
         <table class="data-table">
             <thead>
@@ -149,3 +150,4 @@ $reportCategory = $reportCategory ?? '';
         </table>
     </div>
 <?php endif; ?>
+</div>

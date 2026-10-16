@@ -14,7 +14,7 @@ foreach ($products ?? [] as $product) {
     ];
 }
 ?>
-<div class="form-card">
+<div class="form-card add-product-card">
     <h2>New Product</h2>
     <p class="form-hint">New Product-ID creates a product. An existing one adds stock to it instead.</p>
 
