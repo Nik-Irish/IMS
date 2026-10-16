@@ -24,6 +24,11 @@ $pageTitles = [
 ];
 $pageTitle =
     $pageTitles[$mode];
+$pageEyebrows = [
+    'login' => 'Welcome back',
+    'register' => 'Staff access',
+    'forgot' => 'Account recovery',
+];
 
 ?>
 
@@ -51,12 +56,39 @@ $pageTitle =
 
     <link
         rel="stylesheet"
-        href="css/login.css?v=3"
+        href="css/login.css?v=6"
     >
 
 </head>
 <body>
+<div class="auth-shell">
+    <aside class="auth-aside">
+        <div class="auth-brand">
+            <span class="auth-brand-mark" aria-hidden="true">IM</span>
+            <span>
+                <strong>IMS Nepal</strong>
+                <small>Inventory Management</small>
+            </span>
+        </div>
+
+        <div class="auth-intro">
+            <p class="auth-overline">A better view of your business</p>
+            <h1>Stock and sales, in one place.</h1>
+            <p class="auth-description">
+                Keep your products organized, follow sales, and help your team stay in sync.
+            </p>
+        </div>
+
+        <div class="auth-features" aria-label="IMS features">
+            <span>Inventory control</span>
+            <span>Sales tracking</span>
+            <span>Team access</span>
+        </div>
+    </aside>
+
+    <main class="auth-main">
 <div class="lc">
+    <p class="auth-kicker"><?php echo htmlspecialchars($pageEyebrows[$mode]); ?></p>
     <!-- =========================================================
          TITLE
     ========================================================== -->
@@ -594,6 +626,8 @@ $pageTitle =
 
         <?php endif; ?>
     </form>
+</div>
+    </main>
 </div>
 </body>
 

@@ -17,7 +17,7 @@ $unreadNotifications = $unreadNotifications ?? 0;
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/theme.css?v=10">
+    <link rel="stylesheet" href="css/theme.css?v=22">
     <link rel="stylesheet" href="css/products.css?v=6">
 </head>
 <body>
