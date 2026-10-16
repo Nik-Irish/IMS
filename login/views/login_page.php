@@ -56,7 +56,7 @@ $pageEyebrows = [
 
     <link
         rel="stylesheet"
-        href="css/login.css?v=6"
+        href="css/login.css?v=8"
     >
 
 </head>
@@ -64,7 +64,6 @@ $pageEyebrows = [
 <div class="auth-shell">
     <aside class="auth-aside">
         <div class="auth-brand">
-            <span class="auth-brand-mark" aria-hidden="true">IM</span>
             <span>
                 <strong>IMS Nepal</strong>
                 <small>Inventory Management</small>

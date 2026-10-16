@@ -9,10 +9,11 @@
 .staff-management .add-staff-card {
   max-width: none;
   padding: 1.35rem 1.5rem;
-  background: #FFFFFF;
-  border: 1px solid #DCE5ED;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent-teal);
   border-radius: 10px;
-  box-shadow: 0 3px 12px rgba(29, 49, 68, 0.04);
+  box-shadow: 0 5px 18px rgba(38, 56, 74, 0.06);
 }
 
 .staff-card-heading,
@@ -68,10 +69,10 @@
 .staff-directory {
   max-width: none;
   padding: 0;
-  background: #FFFFFF;
-  border: 1px solid #DCE5ED;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
-  box-shadow: 0 3px 12px rgba(29, 49, 68, 0.04);
+  box-shadow: 0 2px 8px rgba(38, 56, 74, 0.04);
 }
 
 .staff-directory-heading {
@@ -105,7 +106,7 @@
 .staff-directory .data-table th {
   padding: 0.65rem 0.85rem;
   color: #617488;
-  background: #F7F9FB;
+  background: #F2F6F8;
   font-size: 0.67rem;
   letter-spacing: 0.07em;
 }
@@ -115,7 +116,7 @@
 }
 
 .staff-directory .data-table tbody tr:hover {
-  background: #F8FAFC;
+  background: #F0F7FB;
 }
 
 .staff-table .staff-username {
@@ -213,11 +214,11 @@
 /* ── Staff table ─────────────────────────────────────────────────────────── */
 .staff-table .staff-username {
   font-weight: 600;
-  color: var(--fg, #FAFAFA);
+  color: var(--fg, #26384A);
 }
 
 .staff-table .staff-added {
-  color: var(--fg-muted, #A1A1AA);
+  color: var(--fg-muted, #68798A);
   white-space: nowrap;
 }
 
@@ -236,20 +237,20 @@
 .edit-label {
   font-size: 0.78rem;
   font-weight: 600;
-  color: var(--fg, #FAFAFA);
+  color: var(--fg, #26384A);
 }
 
 .edit-optional {
   font-weight: 400;
-  color: var(--fg-muted, #A1A1AA);
+  color: var(--fg-muted, #68798A);
 }
 
 .edit-input {
   padding: 0.4rem 0.6rem;
   font-size: 0.85rem;
-  color: var(--fg, #FAFAFA);
+  color: var(--fg, #26384A);
   background: var(--surface, #FFFFFF);
-  border: 1px solid var(--border, #E2E8F0);
+  border: 1px solid var(--border, #E2EAF1);
   border-radius: 6px;
   outline: none;
   font-family: inherit;
@@ -296,9 +297,9 @@
   width: 100%;
   padding: 0.4rem 0.6rem;
   font-size: 0.82rem;
-  color: var(--fg, #FAFAFA);
+  color: var(--fg, #26384A);
   background: var(--surface, #FFFFFF);
-  border: 1px solid var(--border, #E2E8F0);
+  border: 1px solid var(--border, #E2EAF1);
   border-radius: 6px;
   outline: none;
   font-family: inherit;
@@ -308,7 +309,7 @@
   box-shadow: 0 0 0 3px rgba(57, 120, 184, 0.18);
 }
 .staff-password-input::placeholder {
-  color: var(--fg-muted, #A1A1AA);
+  color: var(--fg-muted, #68798A);
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
