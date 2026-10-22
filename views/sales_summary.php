@@ -25,9 +25,7 @@ $reportCategory = $reportCategory ?? '';
 <div class="sales-summary-page">
     <section class="sales-summary-filter sales-filter-toolbar" aria-labelledby="sales-summary-filter-title">
         <div class="sales-summary-filter-heading">
-            <div>
-                <h2 id="sales-summary-filter-title">Filters</h2>
-            </div>
+            <h2 id="sales-summary-filter-title">Filters</h2>
         </div>
         <form class="search-form sales-filter-form sales-summary-filter-form" method="GET" action="dashboard.php">
             <input type="hidden" name="view" value="report">
@@ -108,9 +106,7 @@ $reportCategory = $reportCategory ?? '';
         <div class="sales-summary-grid">
             <section class="table-wrap sales-summary-table sales-summary-product">
                 <div class="sales-summary-table-heading">
-                    <div>
-                        <h2>Sales by Product</h2>
-                    </div>
+                    <h2>Sales by Product</h2>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -136,9 +132,7 @@ $reportCategory = $reportCategory ?? '';
 
             <section class="table-wrap sales-summary-table sales-summary-day">
                 <div class="sales-summary-table-heading">
-                    <div>
-                        <h2>Sales by Day</h2>
-                    </div>
+                    <h2>Sales by Day</h2>
                 </div>
                 <table class="data-table">
                     <thead>
@@ -163,9 +157,7 @@ $reportCategory = $reportCategory ?? '';
 
         <section class="table-wrap sales-summary-table sales-summary-staff">
             <div class="sales-summary-table-heading">
-                <div>
-                    <h2>Sales by Staff/Admin and Product</h2>
-                </div>
+                <h2>Sales by Staff/Admin and Product</h2>
             </div>
             <table class="data-table">
                 <thead>

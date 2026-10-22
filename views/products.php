@@ -12,7 +12,6 @@ $filtered = $filtered ?? [];
 
 ?>
 
-<!-- Stats row -->
 <div class="stats">
     <div class="stat-card">
         <div class="stat-label">Total Products</div>
@@ -32,7 +31,6 @@ $filtered = $filtered ?? [];
     </div>
 </div>
 
-<!-- Toolbar -->
 <div class="toolbar">
     <form class="search-form" method="GET" action="dashboard.php">
         <input type="hidden" name="view" value="list">
@@ -50,7 +48,6 @@ $filtered = $filtered ?? [];
     </div>
 </div>
 
-<!-- Table -->
 <div class="table-wrap">
     <?php if (empty($filtered)): ?>
         <div class="empty-state">
@@ -112,8 +109,6 @@ $filtered = $filtered ?? [];
 
                     <td>Rs.<?php echo number_format((float)$p['price'] * (int)$p['quantity'], 2); ?></td>
 
-
-                    <!-- Row actions -->
                     <td class="row-actions">
                         <a href="dashboard.php?view=inventory&id=<?php echo (int)$p['id']; ?>"
                            class="btn btn-sm btn-info">Details</a>

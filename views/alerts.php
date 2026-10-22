@@ -7,7 +7,6 @@
 ?>
 
 <div class="alerts-page">
-<!-- Bulk actions -->
 <div class="toolbar">
     <div class="alert-actions">
         <form method="POST" action="dashboard.php?view=notifications">
