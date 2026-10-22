@@ -26,8 +26,7 @@ $reportCategory = $reportCategory ?? '';
     <section class="sales-summary-filter sales-filter-toolbar" aria-labelledby="sales-summary-filter-title">
         <div class="sales-summary-filter-heading">
             <div>
-                <h2 id="sales-summary-filter-title">Report filters</h2>
-                <p>Refine by product, category, or date.</p>
+                <h2 id="sales-summary-filter-title">Filters</h2>
             </div>
         </div>
         <form class="search-form sales-filter-form sales-summary-filter-form" method="GET" action="dashboard.php">
@@ -104,7 +103,6 @@ $reportCategory = $reportCategory ?? '';
     <?php if (empty($filteredSales)): ?>
         <section class="sales-summary-empty">
             <h2>No sales match these filters</h2>
-            <p>Try a different product, category, or date range.</p>
         </section>
     <?php else: ?>
         <div class="sales-summary-grid">
@@ -112,7 +110,6 @@ $reportCategory = $reportCategory ?? '';
                 <div class="sales-summary-table-heading">
                     <div>
                         <h2>Sales by Product</h2>
-                        <p>Product-level totals for the selected period.</p>
                     </div>
                 </div>
                 <table class="data-table">
@@ -141,7 +138,6 @@ $reportCategory = $reportCategory ?? '';
                 <div class="sales-summary-table-heading">
                     <div>
                         <h2>Sales by Day</h2>
-                        <p>Daily units and revenue.</p>
                     </div>
                 </div>
                 <table class="data-table">
@@ -169,7 +165,6 @@ $reportCategory = $reportCategory ?? '';
             <div class="sales-summary-table-heading">
                 <div>
                     <h2>Sales by Staff/Admin and Product</h2>
-                    <p>Compare the products sold by each team member.</p>
                 </div>
             </div>
             <table class="data-table">
