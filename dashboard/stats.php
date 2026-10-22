@@ -45,7 +45,7 @@ $pageSub = [
     'inventory' => 'Full movement and sales history for this Product-ID.',
     'report' => 'Totals by product, by staff, and by day.',
     'notifications' => 'Low-stock warnings, newest first.',
-    'staff' => 'Add staff, reset passwords, delete accounts.',
+    'staff' => 'Add staff and manage staff accounts.',
 ];
 
 $pageTitle = $pageTitles[$view] ?? 'Dashboard';

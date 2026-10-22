@@ -249,8 +249,7 @@ body {
 .form-group input,
 .form-group textarea,
 .form-group select,
-.edit-input,
-.staff-password-input {
+.edit-input {
   color: var(--fg);
   background: var(--surface);
   border-color: #D6E0E9;
@@ -258,8 +257,7 @@ body {
 
 .search-form input::placeholder,
 .form-group input::placeholder,
-.form-group textarea::placeholder,
-.staff-password-input::placeholder {
+.form-group textarea::placeholder {
   color: #929BA8;
 }
 
@@ -268,8 +266,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus,
-.edit-input:focus,
-.staff-password-input:focus {
+.edit-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(57, 120, 184, 0.18);
 }
@@ -1005,8 +1002,7 @@ body {
   box-shadow: 0 0 0 3px rgba(19, 143, 131, 0.18);
 }
 
-.editing-row td,
-.pw-reset-row > td {
+.editing-row td {
   background: #F0F7FB;
 }
 

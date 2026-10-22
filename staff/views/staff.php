@@ -115,43 +115,11 @@
                         <td class="row-actions">
                             <a href="dashboard.php?view=staff&amp;edit=<?php echo $sid; ?>"
                                class="btn btn-sm btn-secondary">Edit</a>
-                            <button type="button" class="btn btn-sm btn-secondary"
-                                    data-reset-row="pw-reset-<?php echo $sid; ?>">Reset Password</button>
                             <form method="POST" class="inline-form"
                                   onsubmit="return confirm('Delete staff user &quot;<?php echo htmlspecialchars($st['username']); ?>&quot;?');">
                                 <input type="hidden" name="action" value="staff_delete">
                                 <input type="hidden" name="id" value="<?php echo $sid; ?>">
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-
-                    <!-- ── Collapsed reset-password row ── -->
-                    <tr class="pw-reset-row" id="pw-reset-<?php echo $sid; ?>">
-                        <td colspan="4">
-                            <form method="POST" action="dashboard.php?view=staff"
-                                  class="pw-reset-form">
-                                <input type="hidden" name="action" value="staff_password_update">
-                                <input type="hidden" name="id" value="<?php echo $sid; ?>">
-
-                                <label class="edit-label">
-                                    New password for
-                                    <strong><?php echo htmlspecialchars($st['username']); ?></strong>
-                                </label>
-                                <div class="pw-input-wrap reset-pw-wrap">
-                                    <input type="password" name="password"
-                                           id="staff-password-<?php echo $sid; ?>"
-                                           class="staff-password-input"
-                                           placeholder="8+ chars, upper, lower, number, symbol"
-                                           aria-label="New password for <?php echo htmlspecialchars($st['username']); ?>"
-                                           required>
-                                    <button type="button" class="pw-toggle"
-                                            data-target="staff-password-<?php echo $sid; ?>">Show</button>
-                                </div>
-
-                                <button type="submit" class="btn btn-sm btn-primary">Set Password</button>
-                                <button type="button" class="btn btn-sm btn-ghost"
-                                        data-reset-row="pw-reset-<?php echo $sid; ?>">Cancel</button>
                             </form>
                         </td>
                     </tr>
@@ -164,7 +132,7 @@
 </section>
 </div>
 
-<!-- ═══════ Scripts: password visibility + reset-row toggle ═══════ -->
+<!-- ═══════ Scripts: password visibility ═══════ -->
 <script>
 document.querySelectorAll('.pw-toggle').forEach(function (button) {
     button.addEventListener('click', function () {
@@ -179,11 +147,4 @@ document.querySelectorAll('.pw-toggle').forEach(function (button) {
         }
     });
 });
-
-document.querySelectorAll('[data-reset-row]').forEach(function (button) {
-    button.addEventListener('click', function () {
-        var row = document.getElementById(button.dataset.resetRow);
-        if (row) row.classList.toggle('open');
-    });
-});
-</script>   
+</script>

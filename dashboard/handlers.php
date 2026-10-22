@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once __DIR__ . '/actions/products.php';       // add, update, stock_in/out, delete
     require_once __DIR__ . '/actions/sales.php';          // sale, delete_sale
     require_once __DIR__ . '/actions/notifications.php';  // mark_read, mark_all_read, delete/clear
-    require_once __DIR__ . '/actions/staff.php';          // staff_create/update/password_update/delete
+    require_once __DIR__ . '/actions/staff.php';          // staff_create/update/delete
 
     // reload lists after any action
     [$products, $sales, $notifications, $staffUsers] = loadLists($pdo);

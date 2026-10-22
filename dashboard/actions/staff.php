@@ -86,23 +86,6 @@ if ($action === 'staff_update') {
     }
 }
 
-if ($action === 'staff_password_update') {
-    $id = (int)($_POST['id'] ?? 0);
-    $newPass = trim($_POST['password'] ?? '');
-    $staff = getStaff($pdo, $id);
-
-    if (!$staff) {
-        $errorMessage = 'Staff account not found.';
-    } elseif (!validPassword($newPass)) {
-        $errorMessage = 'Password: 8+ chars, uppercase, lowercase, number, special character.';
-    } else {
-        $pdo->prepare("UPDATE users SET password_hash=? WHERE id=?")
-            ->execute([password_hash($newPass, PASSWORD_DEFAULT), $id]);
-        $successMessage = 'Password updated for staff "' . $staff['username'] . '".';
-    }
-    $view = 'staff';
-}
-
 if ($action === 'staff_delete') {
     $id = (int)($_POST['id'] ?? 0);
     $row = getStaff($pdo, $id);

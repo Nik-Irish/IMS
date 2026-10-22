@@ -269,49 +269,6 @@
   width: 100%;
 }
 
-/* ── Collapsed reset-password row ────────────────────────────────────────── */
-.pw-reset-row {
-  display: none;
-}
-.pw-reset-row.open {
-  display: table-row;
-}
-
-.pw-reset-row > td {
-  background: #F0F7FB;
-}
-
-.pw-reset-form {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.5rem;
-}
-
-.reset-pw-wrap {
-  width: 280px;
-}
-
-.staff-password-input {
-  width: 100%;
-  padding: 0.4rem 0.6rem;
-  font-size: 0.82rem;
-  color: var(--fg, #26384A);
-  background: var(--surface, #FFFFFF);
-  border: 1px solid var(--border, #E2EAF1);
-  border-radius: 6px;
-  outline: none;
-  font-family: inherit;
-}
-.staff-password-input:focus {
-  border-color: var(--accent, #3978B8);
-  box-shadow: 0 0 0 3px rgba(57, 120, 184, 0.18);
-}
-.staff-password-input::placeholder {
-  color: var(--fg-muted, #68798A);
-}
-
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 760px) {
   .staff-management .add-staff-card {
@@ -323,14 +280,12 @@
   .staff-directory {
     overflow-x: auto;
   }
-  .inline-edit-form,
-  .pw-reset-form {
+  .inline-edit-form {
     align-items: stretch;
     flex-direction: column;
   }
   .edit-username,
-  .edit-pw-wrap,
-  .reset-pw-wrap {
+  .edit-pw-wrap {
     width: 100%;
   }
 }
