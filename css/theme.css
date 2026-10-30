@@ -1,27 +1,25 @@
 /*
 IMS Nepal - shared light theme
 
-60-30-10 rule:
-  60% dominant background  #F3F7FA
-  30% secondary structure  #FFFFFF
-  10% accent interactive   #3978B8
+Palette:
+  warm neutral surfaces, forest navigation, restrained green actions
 */
 
 :root {
-  --bg: #F3F7FA;
+  --bg: #F3F6F1;
   --surface: #FFFFFF;
-  --surface-2: #F8FAFC;
-  --border: #E2EAF1;
-  --fg: #26384A;
-  --fg-muted: #68798A;
-  --accent: #3978B8;
-  --accent-hover: #2D639B;
-  --accent-soft: #3978B8;
-  --accent-teal: #138F83;
-  --accent-coral: #E77C5B;
-  --accent-gold: #C68A22;
-  --accent-violet: #8066B3;
-  --sidebar-bg: #1F3042;
+  --surface-2: #F8FAF7;
+  --border: #DDE5DC;
+  --fg: #26352B;
+  --fg-muted: #626F64;
+  --accent: #426D49;
+  --accent-hover: #355A3C;
+  --accent-soft: #E8F0E7;
+  --accent-teal: #426D49;
+  --accent-coral: #B85D45;
+  --accent-gold: #A87522;
+  --accent-violet: #6C5B84;
+  --sidebar-bg: #202E25;
 }
 
 body {
@@ -40,11 +38,11 @@ body {
 }
 
 .brand-link:hover {
-  color: #65D6C2;
+  color: #B9D2B7;
 }
 
 .nav-link {
-  color: #D3CDD0;
+  color: #D5DED5;
 }
 
 .nav-link:hover {
@@ -54,11 +52,11 @@ body {
 
 .nav-link.active {
   color: #FFFFFF;
-  background: var(--accent-teal);
+  background: #426D49;
 }
 
 .nav-link.active:hover {
-  background: #0F7C72;
+  background: #355A3C;
 }
 
 .sidebar-footer {
@@ -97,19 +95,19 @@ body {
 }
 
 .stats .stat-card:nth-child(4n + 1) {
-  border-left-color: #3978B8;
+  border-left-color: #426D49;
 }
 
 .stats .stat-card:nth-child(4n + 2) {
-  border-left-color: #138F83;
+  border-left-color: #63846A;
 }
 
 .stats .stat-card:nth-child(4n + 3) {
-  border-left-color: #C68A22;
+  border-left-color: #A87522;
 }
 
 .stats .stat-card:nth-child(4n) {
-  border-left-color: #8066B3;
+  border-left-color: #6C5B84;
 }
 
 .stats .stat-card {
@@ -119,7 +117,7 @@ body {
 }
 
 .stats .stat-card .stat-value.stock {
-  color: #067647;
+  color: #2F6845;
 }
 
 .stats .stat-card .stat-value.stock-low {
@@ -131,7 +129,7 @@ body {
 }
 
 .stock {
-  color: #067647;
+  color: #2F6845;
 }
 
 .stock-low {
@@ -1003,16 +1001,16 @@ body {
 }
 
 .pw-toggle:hover {
-  color: #0F7C72;
-  background: #E8F6F3;
+  color: var(--accent-hover);
+  background: var(--accent-soft);
 }
 
 .pw-toggle:focus {
-  box-shadow: 0 0 0 3px rgba(19, 143, 131, 0.18);
+  box-shadow: 0 0 0 3px rgba(66, 109, 73, 0.18);
 }
 
 .editing-row td {
-  background: #F0F7FB;
+  background: #F0F5EF;
 }
 
 .notif-bell {
@@ -1035,5 +1033,241 @@ body {
 .msg-success {
   background: #ECFDF3;
   border-color: #ABEFC6;
-  color: #067647;
+  color: #28603D;
+}
+
+/* Unified warm-neutral and forest-green application palette. */
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.main {
+  background:
+    radial-gradient(ellipse at 100% 0, rgba(217, 231, 214, 0.28), transparent 34rem),
+    var(--bg);
+  color: var(--fg);
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #24352A, var(--sidebar-bg));
+}
+
+.topbar h1,
+.form-card h2 {
+  color: var(--fg);
+}
+
+.topbar-sub,
+.stat-label,
+.form-hint,
+.empty-state,
+.form-group label,
+.section-head,
+.data-table th,
+.cell-desc {
+  color: var(--fg-muted);
+}
+
+.stat-card,
+.table-wrap,
+.form-card,
+.add-product-card,
+.sale-entry-card,
+.sales-filter-toolbar,
+.sales-report-table,
+.sales-summary-table,
+.sales-summary-filter,
+.sales-summary-empty {
+  background-color: var(--surface);
+  border-color: var(--border);
+}
+
+.stat-card,
+.table-wrap,
+.form-card,
+.add-product-card,
+.sale-entry-card,
+.sales-report-table,
+.sales-summary-table,
+.sales-summary-filter,
+.sales-summary-empty {
+  box-shadow: 0 8px 24px rgba(38, 53, 43, 0.055);
+}
+
+.stat-value,
+.stats .stat-card:nth-child(n) .stat-value,
+.sales-summary-page .stats .stat-card:nth-child(n) .stat-value {
+  color: var(--accent);
+}
+
+.stats .stat-card:nth-child(4n + 1),
+.sales-summary-page .stats .sales-metric-units {
+  border-left-color: var(--accent);
+}
+
+.stats .stat-card:nth-child(4n + 2) {
+  border-left-color: #63846A;
+}
+
+.stats .stat-card:nth-child(4n + 3),
+.sales-summary-page .stats .sales-metric-transactions {
+  border-left-color: var(--accent-gold);
+}
+
+.stats .stat-card:nth-child(4n),
+.sales-summary-page .stats .sales-metric-revenue {
+  border-left-color: var(--accent);
+}
+
+.search-form input[type="search"],
+.search-form input[type="date"],
+.search-form select,
+.form-group input,
+.form-group textarea,
+.form-group select,
+.edit-input,
+.sales-filter-form select,
+.sales-filter-form input[type="date"] {
+  color: var(--fg);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.search-form input:focus,
+.search-form select:focus,
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.edit-input:focus,
+.sales-filter-form select:focus,
+.sales-filter-form input[type="date"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(66, 109, 73, 0.16);
+}
+
+.btn-primary,
+.add-product-card .btn-primary,
+.sale-entry-card .form-actions .btn-primary {
+  color: #FFFFFF;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-primary:hover,
+.add-product-card .btn-primary:hover,
+.sale-entry-card .form-actions .btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 5px 14px rgba(53, 90, 60, 0.2);
+}
+
+.btn-secondary {
+  color: var(--fg);
+  background: #E9EEE7;
+}
+
+.btn-secondary:hover {
+  background: #DCE5D9;
+}
+
+.btn-info,
+.type-sale,
+.type-product_count,
+.type-adjust,
+.data-table code,
+.sales-report-table .data-table code {
+  color: #355D3E;
+  background: #EAF2E8;
+  border-color: #D1E0CE;
+}
+
+.btn-info:hover {
+  background: #DCEADA;
+}
+
+.badge,
+.type-info {
+  color: #536357;
+  background: #F0F3EF;
+  border-color: var(--border);
+}
+
+.section-head,
+.data-table th,
+.sales-report-table .data-table th,
+.sales-summary-table .data-table th,
+.sales-summary-table-heading {
+  color: #4F5F52;
+  background: #F5F8F4;
+}
+
+.section-head,
+.data-table th,
+.data-table td,
+.sales-report-table .data-table th:not(:last-child),
+.sales-report-table .data-table td:not(:last-child) {
+  border-color: var(--border);
+}
+
+.data-table tbody tr:hover,
+.pid-item:hover {
+  background: #F2F7F1;
+}
+
+.data-table td,
+.sales-report-table .data-table td,
+.sales-summary-table .data-table td {
+  color: #354439;
+}
+
+.link-name:hover,
+.pid-code,
+.sales-product-code {
+  color: var(--accent);
+}
+
+.add-product-card,
+.sale-entry-card {
+  border-top-color: var(--accent);
+}
+
+.sale-tax-preview {
+  color: #4E5D50;
+  background: #F2F6F0;
+  border-color: #DDE7DA;
+}
+
+.sale-tax-preview span,
+.sales-filter-field label,
+.sales-report-heading h2,
+.sales-summary-filter-heading h2,
+.sales-summary-table-heading h2,
+.sales-summary-empty h2 {
+  color: #4E5D50;
+}
+
+.sale-tax-preview span:last-child,
+.sales-report-table .data-table td:nth-child(6),
+.sales-summary-table .data-table td:last-child {
+  color: var(--fg);
+}
+
+.notif-bell:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.stats .stat-card .stat-value.stock {
+  color: #2F6845;
+}
+
+.stats .stat-card .stat-value.stock-low,
+.stock-low {
+  color: #9A5B12;
+}
+
+.stats .stat-card .stat-value.stock-zero,
+.stock-zero {
+  color: #B42318;
 }
