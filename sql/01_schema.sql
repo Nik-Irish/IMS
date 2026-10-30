@@ -2,7 +2,7 @@
 -- IMS Nepal - 01_schema.sql
 -- Creates the 6 core tables. Safe to re-run (IF NOT EXISTS).
 -- Run order: 01_schema.sql -> 02_foreign_keys.sql
--- install.php runs this automatically.
+-- This file is not executed by the application.
 -- =============================================================
 
 CREATE TABLE IF NOT EXISTS users (

@@ -1,74 +1,98 @@
-<?php
-
-define('INSTALL_APP', true);
-
-require __DIR__ . '/install/helpers.php';
-require __DIR__ . '/install/schema.php';
-require __DIR__ . '/install/migrations.php';
-require __DIR__ . '/install/foreign_keys.php';
-require __DIR__ . '/install/admin.php';
-
-$host = 'localhost';
-$port = 3306;
-$user = 'root';
-$password = '';
-$database = 'ims';
-$adminEmail = 'itsnikrish@gmail.com';
-
-$messages = [];
-$installationSucceeded = true;
-
-try {
-    $pdo = dbConnect($host, $port, $user, $password);
-
-    $messages[] = ensureDatabase($pdo, $database);
-    $messages = array_merge(
-        $messages,
-        createTables($pdo),
-        migrateSchema($pdo),
-        addForeignKeys($pdo),
-        ensureAdmin($pdo, $adminEmail)
-    );
-} catch (Throwable $error) {
-    $installationSucceeded = false;
-    $messages[] = 'ERROR: ' . $error->getMessage();
-}
-
-if ($installationSucceeded) {
-    header('Location: login.php');
-    exit;
-}
-
-function escapeHtml(string $text): string
-{
-    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Installation Failed | IMS Nepal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#F5F6F2">
+    <title>IMS Nepal | Inventory, in control</title>
+    <link rel="stylesheet" href="css/install.css?v=11">
 </head>
 <body>
-    <div class="box">
-        <h1>Installation Failed</h1>
+    <header>
+        <div class="product-header">
+            <div class="product-header-inner">
+                <a class="wordmark" href="install.php" aria-label="IMS Nepal home">
+                    <span>IMS <span class="wordmark-light">Nepal</span></span>
+                </a>
+                <nav class="site-nav" aria-label="IMS Nepal">
+                    <a href="install.php" aria-current="page">Home</a>
+                    <a href="pages/about.php">About Us</a>
+                    <a href="pages/contact.php">Contact</a>
+                </nav>
+                <div class="header-actions">
+                    <a class="sign-in-link" href="login.php">Sign in</a>
+                    <a class="button button-small" href="login.php?action=register">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
-        <ul>
-            <?php foreach ($messages as $message): ?>
-                <li><?= escapeHtml($message) ?></li>
-            <?php endforeach; ?>
-        </ul>
+    <main>
+        <section class="hero-band">
+            <div class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">IMS NEPAL</p>
+                    <h1>Inventory and sales management for your business.</h1>
+                    <p class="hero-description">
+                        Keep product records, stock changes, sales, and VAT invoices
+                        together in one practical system.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button" href="login.php?action=register">Sign Up</a>
+                        <a class="button button-secondary" href="pages/contact.php">Talk to us</a>
+                    </div>
+                </div>
 
-        <a class="retry" href="install.php">Retry Installation</a>
+                <figure class="hero-visual">
+                    <img src="assets/warehouse-login.jpg" alt="Warehouse shelves stocked with products">
+                    <figcaption>Inventory and sales records in one system.</figcaption>
+                </figure>
+            </div>
+        </section>
 
-        <p class="hint">
-            1. Start MySQL on port <?= $port; ?><br>
-            2. Click Retry Installation.<br>
-            Admin login after installation:
-            <strong>admin</strong> / Password123$
-        </p>
-    </div>
+        <section class="feature-section" id="features">
+            <div class="section-heading">
+                <p class="eyebrow">WHAT THE SOFTWARE COVERS</p>
+                <h2>Tools for managing day-to-day operations.</h2>
+            </div>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Inventory tracking</h3>
+                    <p>Maintain a product catalogue and follow stock additions, adjustments, and sales.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Sales and invoices</h3>
+                    <p>Record customer sales, update stock, and print invoices with a 13% VAT breakdown.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Stock alerts</h3>
+                    <p>See which products are low or out of stock with built-in alerts.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Reports and staff</h3>
+                    <p>Manage staff access and review sales by product, staff member, and date.</p>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-brand">
+            <a class="wordmark footer-wordmark" href="install.php">IMS Nepal</a>
+            <p>Inventory and sales management.</p>
+        </div>
+        <div class="footer-contact">
+            <span class="footer-contact-title">CONTACT</span>
+            <a href="tel:+9779842020363">Phone: +977 9842020363</a>
+            <a href="mailto:sales@IMS.com">Email: sales@IMS.com</a>
+        </div>
+        <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="pages/about.php">About Us</a>
+            <a href="pages/contact.php">Contact</a>
+            <a href="login.php">Sign in</a>
+        </div>
+    </footer>
 </body>
 </html>

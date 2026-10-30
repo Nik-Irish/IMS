@@ -2,7 +2,7 @@
 -- IMS Nepal - 02_foreign_keys.sql
 -- Connects related tables. Same-named columns stay in sync.
 -- Run AFTER 01_schema.sql. Safe to re-run manually only if the
--- constraint does not exist yet (install.php checks first).
+-- constraint does not exist yet.
 -- =============================================================
 ALTER TABLE movements
     ADD CONSTRAINT fk_movements_product

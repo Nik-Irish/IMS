@@ -1,10 +1,9 @@
 -- =============================================================
 -- IMS Nepal - 03_migrations.sql
 -- Upgrade commands for databases created by an older version.
--- install.php (install/migrations.php) runs each statement ONLY
--- when the target database is missing it. The [key] markers tell
--- the installer which condition guards which statement.
--- Statements marked {PLACEHOLDER} get values filled in at runtime.
+-- Review each statement and its preconditions against the target database
+-- before applying. This file is not executed by the application.
+-- Statements marked {PLACEHOLDER} require values before execution.
 -- =============================================================
 
 -- [users.role]

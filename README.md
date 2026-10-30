@@ -26,25 +26,17 @@ No Composer or frontend package-manager dependencies.
 
 1. Place the project at `C:\xampp\htdocs\IMS`.
 2. Start Apache and MySQL.
-3. Set matching database credentials in `config/connector.php` and `install.php`.
-4. Open `http://localhost/IMS/install.php`.
-5. Sign in at `http://localhost/IMS/login.php`.
+3. Configure the database connection in `config/connector.php`.
+4. Ensure the `ims` database is already initialized with the project schema and an administrator account.
+5. Open `http://localhost/IMS/login.php` to sign in.
 
-Default database: `ims` on `localhost:3306`, user `root`, empty password. The installer needs permission to create the database and tables.
-
-### Initial administrator
-
-| Username | Password |
-| --- | --- |
-| `admin` | `Password123$` |
-
-Change the password after first sign-in. **The installer resets the admin password whenever it runs. Remove or restrict `install.php` after setup.**
+The default connection settings target database `ims` on `localhost:3306`, user `root`, with an empty password. The application does not create or reset the database or administrator account.
 
 ## Configuration
 
 | Setting | Location | Notes |
 | --- | --- | --- |
-| Database connection | `config/connector.php`, `install.php` | Keep values consistent; use a dedicated database account outside local development. |
+| Database connection | `config/connector.php` | Use a dedicated database account outside local development. |
 | Password-reset email | PHP `sendmail_path`, `includes/Mailer.php` | Configure a sendmail-compatible relay and sender details. Email is optional. |
 
 ## Database
@@ -58,7 +50,7 @@ Change the password after first sign-in. **The installer resets the admin passwo
 | `notifications` | Stock and catalog alerts |
 | `otps` | Hashed, expiring password-reset codes |
 
-For manual setup of a new database, run `sql/01_schema.sql`, then `sql/02_foreign_keys.sql`. `sql/03_migrations.sql` is for upgrades; the installer applies migrations with precondition checks.
+The SQL files are provided for database administration: `sql/01_schema.sql` defines the tables and `sql/02_foreign_keys.sql` defines their relationships. `sql/03_migrations.sql` contains upgrade statements and requires review against the current database before use. The application does not run these scripts automatically.
 
 ## Project map
 
@@ -68,7 +60,7 @@ assets/       Local images
 css/          Stylesheets
 dashboard/    Administrator dashboard and actions
 includes/     Authentication, mail, shared helpers, invoices
-install/      Installer helpers
+pages/        Public About and Contact pages
 login/        Login, registration, password recovery
 sql/          Schema, foreign keys, migrations
 staff/        Staff dashboard and views
@@ -76,7 +68,7 @@ views/        Shared administrator views
 dashboard.php Administrator entry point
 staff_dashboard.php
 login.php     Authentication entry point
-install.php   Database installer; restrict after use
+install.php   Product landing page (kept at project root)
 ```
 
 The warehouse login image is stored locally; the page does not fetch it at runtime.
@@ -92,7 +84,6 @@ The warehouse login image is stored locally; the page does not fetch it at runti
 
 | Symptom | Check |
 | --- | --- |
-| Database connection fails | MySQL status and matching credentials in `config/connector.php` and `install.php`. |
-| Installer cannot create database | Grant database-creation permissions or create the database first. |
+| Database connection fails | MySQL status and matching credentials in `config/connector.php`. |
 | Reset email is missing | PHP `sendmail_path`, relay/SMTP settings, sender settings, and PHP error log. |
 | Product deletion is blocked | Sales and movement records reference the product; retain it to preserve history. |
