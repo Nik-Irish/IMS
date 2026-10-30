@@ -99,6 +99,8 @@ Staff can view current products and stock, record sales, review their own sales,
 .
 ├── config/
 │   └── connector.php          # PDO connection to MySQL
+├── assets/
+│   └── warehouse-login.jpg   # Login-page background photo
 ├── css/                       # Application stylesheets
 ├── dashboard/                 # Administrator dashboard logic and actions
 ├── includes/                  # Authentication, shared helpers, mail, invoices
@@ -112,6 +114,8 @@ Staff can view current products and stock, record sales, review their own sales,
 ├── login.php                  # Login and account recovery entry point
 └── install.php                # Database installer; restrict after use
 ```
+
+The login-page warehouse photo is stored locally, so it does not need an internet connection when the app loads. The [photo](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85) is sourced from Unsplash.
 
 ## Database tables
 

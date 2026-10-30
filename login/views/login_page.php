@@ -51,15 +51,14 @@ $pageTitle =
 
     <link
         rel="stylesheet"
-        href="css/login.css?v=10"
+        href="css/login.css?v=27"
     >
 
 </head>
 <body>
 <div class="auth-shell">
     <main class="auth-main">
-<div class="lc">
-    <p class="auth-brand-name">IMS Nepal</p>
+<div class="lc<?php echo $mode === 'forgot' ? ' lc-compact' : ''; ?>">
     <h1 class="auth-page-title"><?php echo htmlspecialchars($pageTitle); ?></h1>
     <p class="sub">
         <?php if ($mode === 'register'): ?>
@@ -257,12 +256,6 @@ $pageTitle =
                     );
                     ?>"
                 >
-                <small class="ph">
-
-                    Enter the username whose
-                    password you want to reset.
-
-                </small>
 
             </div>
             <div class="fg">
@@ -287,13 +280,6 @@ $pageTitle =
                     );
                     ?>"
                 >
-                <small class="ph">
-
-                    This email is only used to
-                    receive the OTP. It does not
-                    need to match the account email.
-
-                </small>
 
             </div>
         <?php elseif (
@@ -465,107 +451,96 @@ $pageTitle =
         ========================================================== -->
 
         <div class="fa">
-            <?php if (
-                $mode === 'register'
-            ): ?>
-                <a
-                    href="login.php?action=login"
-                    class="sl"
-                >
-                    Back to Login
-                </a>
-                <button
-                    type="submit"
-                    class="bs"
-                >
-                    Create Account
-                </button>
-            <?php elseif (
-                $mode === 'forgot' &&
-                $resetStage === 'email'
-            ): ?>
-                <a
-                    href="login.php?action=login"
-                    class="sl"
-                >
-                    Back to Login
-                </a>
-                <button
-                    type="submit"
-                    class="bs"
-                >
-                    Send OTP
-                </button>
-            <?php elseif (
-                $mode === 'forgot' &&
-                $resetStage === 'otp'
-            ): ?>
-                <a
-                    href="login.php?action=forgot&restart=1"
-                    class="sl"
-                >
-                    Back
-                </a>
-                <button
-                    type="submit"
-                    class="bs"
-                >
-                    Verify OTP
-                </button>
-            <?php elseif (
-                $mode === 'forgot' &&
-                $resetStage === 'newpass'
-            ): ?>
-                <a
-                    href="login.php?action=login"
-                    class="sl"
-                >
-                    Back to Login
-                </a>
-                <button
-                    type="submit"
-                    class="bs"
-                >
-                    Reset Password
-                </button>
-            <?php else: ?>
-                <a
-                    href="login.php?action=register"
-                    class="sl"
-                >
-                    Create account
-                </a>
+            <?php if ($mode === 'login'): ?>
                 <button
                     type="submit"
                     class="bs"
                 >
                     Log In
                 </button>
+                <div class="auth-link-row">
+                    <a
+                        href="login.php?action=register"
+                        class="sl"
+                    >
+                        Create account
+                    </a>
+                    <a
+                        href="login.php?action=forgot"
+                        class="fl"
+                    >
+                        Forgot password?
+                    </a>
+                </div>
+            <?php elseif (
+                $mode === 'register'
+            ): ?>
+                <button
+                    type="submit"
+                    class="bs"
+                >
+                    Create Account
+                </button>
+                <a
+                    href="login.php?action=login"
+                    class="sl"
+                >
+                    Back to Login
+                </a>
+            <?php elseif (
+                $mode === 'forgot' &&
+                $resetStage === 'email'
+            ): ?>
+                <button
+                    type="submit"
+                    class="bs"
+                >
+                    Send OTP
+                </button>
+                <a
+                    href="login.php?action=login"
+                    class="sl"
+                >
+                    Back to Login
+                </a>
+            <?php elseif (
+                $mode === 'forgot' &&
+                $resetStage === 'otp'
+            ): ?>
+                <button
+                    type="submit"
+                    class="bs"
+                >
+                    Verify OTP
+                </button>
+                <a
+                    href="login.php?action=forgot&restart=1"
+                    class="sl"
+                >
+                    Back
+                </a>
+            <?php elseif (
+                $mode === 'forgot' &&
+                $resetStage === 'newpass'
+            ): ?>
+                <button
+                    type="submit"
+                    class="bs"
+                >
+                    Reset Password
+                </button>
+                <a
+                    href="login.php?action=login"
+                    class="sl"
+                >
+                    Back to Login
+                </a>
             <?php endif; ?>
         </div>
-        <!-- =========================================================
-             FORGOT PASSWORD LINK
-        ========================================================== -->
-
-        <?php if (
-            $mode === 'login'
-        ): ?>
-
-            <div class="fr">
-
-                <a
-                    href="login.php?action=forgot"
-                    class="fl"
-                >
-                    Forgot password?
-                </a>
-
-            </div>
-
-        <?php endif; ?>
     </form>
 </div>
     </main>
+    <aside class="auth-visual" aria-label="Warehouse shelves and inventory"></aside>
 </div>
 </body>
 
