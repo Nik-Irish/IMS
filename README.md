@@ -79,7 +79,7 @@ login.php     Authentication entry point
 install.php   Database installer; restrict after use
 ```
 
-The warehouse login image is stored locally; the page does not fetch it at runtime. Image source: [Unsplash](https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85).
+The warehouse login image is stored locally; the page does not fetch it at runtime.
 
 ## Known limitations
 
