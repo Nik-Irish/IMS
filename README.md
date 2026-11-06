@@ -86,7 +86,6 @@ dashboard.php     Administrator entry point
 staff_dashboard.php
 index.php         Root landing-page entry point
 signin.php        Authentication entry point
-login.php         Redirects to the landing page
 landing/index.php Public product landing page
 ```
 
