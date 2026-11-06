@@ -22,9 +22,18 @@ function addForeignKeys(PDO $pdo): array
         if (constraintExists($pdo, $table, $name)) {
             continue;
         }
+        $orphanCount = $pdo->query(
+            "SELECT COUNT(*) FROM `$table` t
+             LEFT JOIN products p ON t.product_id = p.product_id
+             WHERE t.product_id IS NOT NULL AND p.product_id IS NULL"
+        )->fetchColumn();
+        if ((int)$orphanCount > 0) {
+            throw new RuntimeException(
+                "Cannot add $name: $orphanCount $table.product_id values do not match products.product_id."
+            );
+        }
         $pdo->exec($statement);
         $messages[] = "Added foreign key $name.";
     }
     return $messages;
 }
-

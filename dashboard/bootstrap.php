@@ -22,9 +22,9 @@ if (!defined('DASHBOARD_CONTROLLER')) {
 }
 
 if ($pdo->query("SHOW COLUMNS FROM products LIKE 'sku'")->fetch()) {
-    $pdo->exec("ALTER TABLE products CHANGE COLUMN sku product_id VARCHAR(50) NOT NULL COMMENT 'Product ID'");
-    $pdo->exec("ALTER TABLE products DROP INDEX uq_products_sku");
-    $pdo->exec("CREATE UNIQUE INDEX uq_products_product_id ON products(product_id)");
+    require_once __DIR__ . '/../install/helpers.php';
+    require_once __DIR__ . '/../install/migrations.php';
+    migrateSchema($pdo);
 }
 
 $allowedViews = ['list', 'add', 'edit', 'sales', 'sale_add', 'inventory', 'report', 'notifications', 'staff'];

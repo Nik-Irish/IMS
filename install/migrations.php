@@ -2,11 +2,11 @@
 /**
  * install/migrations.php - schema upgrades for older installs.
  * The statements live in sql/03_migrations.sql (keyed); this file decides
- * WHICH statements run against the target database. Included by install.php
- * (which defines INSTALL_APP). Do not open directly.
+ * WHICH statements run against the target database. Included by installer
+ * or dashboard migration code. Do not open directly.
  */
 
-if (!defined('INSTALL_APP')) {
+if (!defined('INSTALL_APP') && !defined('DASHBOARD_CONTROLLER')) {
     http_response_code(403);
     exit('Direct access not allowed.');
 }
@@ -43,17 +43,31 @@ function migrateSchema(PDO $pdo): array
         $pdo->exec($sql['sales.staff_name']);
         $messages[] = 'Added staff_name to sales.';
     }
-    if (columnExists($pdo, 'products', 'sku')) {
-        $pdo->exec($sql['products.drop_sku']);
-        $messages[] = 'Removed sku column from products.';
-    }
-    // give existing rows a unique placeholder Product-ID so the UNIQUE key can be added
     if (!columnExists($pdo, 'products', 'product_id')) {
         $pdo->exec($sql['products.product_id']);
-        $pdo->exec($sql['products.product_id_backfill']);
         $messages[] = 'Added product_id column to products.';
     }
-    if (!indexExists($pdo, 'products', 'uq_products_product_id')) {
+    if (!columnExists($pdo, 'sales', 'product_id')) {
+        $pdo->exec($sql['sales.product_id']);
+        $messages[] = 'Added product_id column to sales.';
+    }
+    if (columnExists($pdo, 'products', 'sku')) {
+        $pdo->exec($sql['products.product_id_from_sku']);
+        $messages[] = 'Copied existing product SKUs to product_id where needed.';
+    }
+    $pdo->exec($sql['products.product_id_backfill']);
+    $pdo->exec($sql['products.product_id_not_null']);
+    $hasUniqueProductId = $pdo->query(
+        "SELECT COUNT(*) FROM information_schema.STATISTICS
+         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'products'
+           AND COLUMN_NAME = 'product_id' AND NON_UNIQUE = 0
+           AND INDEX_NAME IN (
+               SELECT INDEX_NAME FROM information_schema.STATISTICS
+               WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'products'
+               GROUP BY INDEX_NAME HAVING COUNT(*) = 1
+           )"
+    )->fetchColumn();
+    if (!(int)$hasUniqueProductId) {
         $pdo->exec($sql['products.uq_product_id']);
         $messages[] = 'Added unique key on products.product_id.';
     }
@@ -65,22 +79,41 @@ function migrateSchema(PDO $pdo): array
         )->fetchColumn();
         if (!$colType || $colType === 'varchar' || $colType === 'char') continue;
 
-        $oldFk = $pdo->query(
+        $orphanCount = $pdo->query(
+            "SELECT COUNT(*) FROM `$table` t
+             LEFT JOIN products p ON t.product_id = p.id
+             WHERE t.product_id IS NOT NULL AND p.id IS NULL"
+        )->fetchColumn();
+        if ((int)$orphanCount > 0) {
+            throw new RuntimeException(
+                "Cannot convert $table.product_id: $orphanCount values do not match a products.id."
+            );
+        }
+
+        $oldFks = $pdo->query(
             "SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE
              WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '$table'
-               AND COLUMN_NAME = 'product_id' AND REFERENCED_TABLE_NAME = 'products'"
-        )->fetchColumn();
-        if ($oldFk) {
-            $pdo->exec(str_replace(['{TABLE}', '{FK}'], [$table, $oldFk], $sql['convert.drop_fk']));
+               AND COLUMN_NAME = 'product_id' AND REFERENCED_TABLE_NAME IS NOT NULL"
+        )->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($oldFks as $oldFk) {
+            $quotedForeignKey = str_replace('`', '``', $oldFk);
+            $pdo->exec(str_replace(
+                ['{TABLE}', '{FK}'],
+                [$table, $quotedForeignKey],
+                $sql['convert.drop_fk']
+            ));
         }
-        $pdo->exec(str_replace('{TABLE}', $table, $sql['convert.update']));
         $nullability = ($table === 'movements') ? 'NOT NULL' : 'NULL';
         $pdo->exec(str_replace(['{TABLE}', '{NULLABILITY}'], [$table, $nullability], $sql['convert.modify']));
+        $pdo->exec(str_replace('{TABLE}', $table, $sql['convert.update']));
         $messages[] = "Converted $table.product_id to store Product-ID codes.";
     }
 
     if (columnExists($pdo, 'sales', 'product_sku')) {
-        $pdo->exec($sql['sales.product_id_from_legacy_sku']);
+        $mappingStatement = columnExists($pdo, 'products', 'sku')
+            ? $sql['sales.product_id_from_products_sku']
+            : $sql['sales.product_id_from_legacy_sku'];
+        $pdo->exec($mappingStatement);
 
         $skuForeignKeys = $pdo->query(
             "SELECT DISTINCT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE
@@ -94,6 +127,22 @@ function migrateSchema(PDO $pdo): array
 
         $pdo->exec($sql['sales.drop_product_sku']);
         $messages[] = 'Removed duplicate sales.product_sku column; sales.product_id is retained.';
+    }
+
+    if (columnExists($pdo, 'products', 'sku')) {
+        $skuReferences = $pdo->query(
+            "SELECT TABLE_NAME, CONSTRAINT_NAME
+             FROM information_schema.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = DATABASE() AND REFERENCED_TABLE_NAME = 'products'
+               AND REFERENCED_COLUMN_NAME = 'sku'"
+        )->fetchAll(PDO::FETCH_ASSOC);
+        if ($skuReferences) {
+            throw new RuntimeException(
+                'Cannot remove products.sku while foreign keys still reference it.'
+            );
+        }
+        $pdo->exec($sql['products.drop_sku']);
+        $messages[] = 'Removed legacy products.sku column.';
     }
 
     return $messages;

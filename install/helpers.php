@@ -1,10 +1,10 @@
 <?php
 /**
  * install/helpers.php - shared helpers for the installer.
- * Included by install.php (which defines INSTALL_APP). Do not open directly.
+ * Included by installer or dashboard migration code. Do not open directly.
  */
 
-if (!defined('INSTALL_APP')) {
+if (!defined('INSTALL_APP') && !defined('DASHBOARD_CONTROLLER')) {
     http_response_code(403);
     exit('Direct access not allowed.');
 }
@@ -90,4 +90,3 @@ function sqlStatementsByKey(string $file): array
     }
     return $keys;
 }
-
