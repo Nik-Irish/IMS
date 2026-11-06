@@ -2,8 +2,11 @@
 /**
  * views/staff.php - Manage staff accounts
  *
- * Requires: $staffUsers (array), $editStaff (array|null)
+ * @var array $staffUsers
+ * @var array|null $editStaff
  */
+$staffCount = count($staffUsers);
+$staffCountLabel = $staffCount === 1 ? 'account' : 'accounts';
 ?>
 <link rel="stylesheet" href="css/staff.css?v=7">
 
@@ -45,8 +48,8 @@
             <h2>Staff accounts</h2>
         </div>
         <span class="staff-count">
-            <?php echo count($staffUsers); ?>
-            <span><?php echo count($staffUsers) === 1 ? 'account' : 'accounts'; ?></span>
+            <?php echo $staffCount; ?>
+            <span><?php echo $staffCountLabel; ?></span>
         </span>
     </div>
     <?php if (empty($staffUsers)): ?>
