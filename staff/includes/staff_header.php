@@ -13,21 +13,16 @@ $view = $view ?? 'list';
     <meta charset="UTF-8">
     <title><?php echo htmlspecialchars($pageTitle); ?> | IMS Nepal Staff</title>
     <link rel="stylesheet" href="css/base.css?v=1">
-    <link rel="stylesheet" href="css/sidebar.css?v=3">
+    <link rel="stylesheet" href="css/sidebar.css?v=4">
     <link rel="stylesheet" href="css/components.css?v=1">
     <link rel="stylesheet" href="css/theme.css?v=26">
     <link rel="stylesheet" href="css/products.css?v=7">
-    <script src="assets/js/sidebar-toggle.js?v=1" defer></script>
 </head>
 <body>
 <div class="app">
     <aside class="sidebar">
         <div class="sidebar-brand">
             <a href="Staff_dashboard.php?view=list" class="brand brand-link">IMS Nepal</a>
-            <button class="sidebar-toggle" type="button" aria-label="Hide navigation"
-                    aria-controls="primary-navigation" aria-expanded="true" title="Hide navigation">
-                <span aria-hidden="true">‹</span>
-            </button>
         </div>
         <nav class="nav" id="primary-navigation" aria-label="Main navigation">
             <a href="Staff_dashboard.php?view=list"
@@ -49,10 +44,6 @@ $view = $view ?? 'list';
     </aside>
     <main class="main">
         <header class="topbar">
-            <button class="sidebar-toggle sidebar-toggle-show" type="button" aria-label="Show navigation"
-                    aria-controls="primary-navigation" aria-expanded="false" title="Show navigation" hidden>
-                <span aria-hidden="true">☰</span>
-            </button>
             <div>
                 <h1>
                     <?php echo $view === 'list'
