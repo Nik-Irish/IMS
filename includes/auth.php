@@ -10,7 +10,7 @@ function requireRole(string $role): void
         session_start();
     }
     if (($_SESSION['role'] ?? '') !== $role) {
-        header('Location: login.php');
+        header('Location: signin.php');
         exit;
     }
 }

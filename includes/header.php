@@ -60,7 +60,7 @@ $unreadNotifications = $unreadNotifications ?? 0;
         </nav>
 
         <div class="sidebar-footer">
-            <a href="login.php?action=logout" class="nav-link logout">Logout</a>
+            <a href="signin.php?action=logout" class="nav-link logout">Logout</a>
         </div>
     </aside>
 

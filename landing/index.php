@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="theme-color" content="#F5F6F2">
     <title>IMS Nepal | Inventory and Sales Management</title>
-    <link rel="stylesheet" href="css/install.css?v=14">
+    <link rel="stylesheet" href="css/landing.css?v=1">
 </head>
 <body>
     <header>
         <div class="product-header">
             <div class="product-header-inner">
-                <a class="wordmark" href="install.php" aria-label="IMS Nepal home">
+                <a class="wordmark" href="index.php" aria-label="IMS Nepal home">
                     <span>IMS <span class="wordmark-light">Nepal</span></span>
                 </a>
                 <nav class="site-nav" aria-label="IMS Nepal">
-                    <a href="install.php" aria-current="page">Home</a>
-                    <a href="pages/about.php">About</a>
-                    <a href="pages/contact.php">Contact</a>
+                    <a href="index.php" aria-current="page">Home</a>
+                    <a href="about.php">About</a>
+                    <a href="contact.php">Contact</a>
                 </nav>
                 <div class="header-actions">
-                    <a class="sign-in-link" href="login.php">Sign in</a>
-                    <a class="button button-small" href="login.php?action=register">Create account</a>
+                    <a class="sign-in-link" href="../signin.php">Sign in</a>
+                    <a class="button button-small" href="../signin.php?action=register">Create account</a>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                         No more keeping separate lists for day-to-day sales.
                     </p>
                     <div class="hero-actions">
-                        <a class="button" href="login.php?action=register">Create an account <span aria-hidden="true">→</span></a>
+                        <a class="button" href="../signin.php?action=register">Create an account <span aria-hidden="true">→</span></a>
                         <a class="button button-secondary" href="#features">See what IMS does</a>
                     </div>
                     <p class="hero-note"><span aria-hidden="true">✓</span> Stock updates when you record a sale.</p>
@@ -70,19 +70,19 @@
                     <span class="feature-index">INVENTORY</span>
                     <h3>Add products and track stock</h3>
                     <p>Keep product names, IDs, prices, and quantities together. Stock changes as you update inventory or record sales.</p>
-                    <a href="pages/about.php#stock">Learn about stock tracking <span aria-hidden="true">→</span></a>
+                    <a href="about.php#stock">Learn about stock tracking <span aria-hidden="true">→</span></a>
                 </article>
                 <article class="feature-card" id="sales">
                     <span class="feature-index">SALES</span>
                     <h3>Record sales and print bills</h3>
                     <p>Save the sale and customer details, update stock, and print a bill with the 13% VAT breakdown.</p>
-                    <a href="pages/about.php#sales">Learn about sales <span aria-hidden="true">→</span></a>
+                    <a href="about.php#sales">Learn about sales <span aria-hidden="true">→</span></a>
                 </article>
                 <article class="feature-card" id="reports">
                     <span class="feature-index">REPORTS AND ALERTS</span>
                     <h3>See what needs attention</h3>
                     <p>Review sales by date, product, or staff member. Get an alert when a product has 10 units or fewer.</p>
-                    <a href="pages/about.php#reports">Learn about reports <span aria-hidden="true">→</span></a>
+                    <a href="about.php#reports">Learn about reports <span aria-hidden="true">→</span></a>
                 </article>
             </div>
         </section>
@@ -92,14 +92,14 @@
                 <p class="eyebrow">GETTING STARTED</p>
                 <h2>Want to keep your stock and sales in one place?</h2>
             </div>
-            <a class="button button-light" href="login.php?action=register">Create an account <span aria-hidden="true">→</span></a>
+            <a class="button button-light" href="../signin.php?action=register">Create an account <span aria-hidden="true">→</span></a>
         </section>
 
     </main>
 
     <footer class="site-footer">
         <div class="footer-brand">
-            <a class="wordmark footer-wordmark" href="install.php">IMS Nepal</a>
+            <a class="wordmark footer-wordmark" href="index.php">IMS Nepal</a>
             <p>Products, stock, sales, and reports in one place.</p>
         </div>
         <div class="footer-contact">
@@ -109,9 +109,9 @@
         </div>
         <div class="footer-links">
             <a href="#features">Features</a>
-            <a href="pages/about.php">About</a>
-            <a href="pages/contact.php">Contact</a>
-            <a href="login.php">Sign in</a>
+            <a href="about.php">About</a>
+            <a href="contact.php">Contact</a>
+            <a href="../signin.php">Sign in</a>
         </div>
     </footer>
 </body>

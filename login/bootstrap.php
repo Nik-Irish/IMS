@@ -1,7 +1,7 @@
 <?php
 /**
  * login/bootstrap.php - session, Mailer, DB connection, mode
- * selection and reset-stage setup for login.php.
+ * selection and reset-stage setup for signin.php.
  * Body extracted verbatim from the original login.php (lines 1-105).
  */
 defined('LOGIN_CONTROLLER') || exit;

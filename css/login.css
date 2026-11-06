@@ -230,7 +230,7 @@ body {
   inset: -2%;
   background:
     linear-gradient(135deg, rgba(31, 21, 46, 0.5), rgba(25, 30, 33, 0.3)),
-    url("../assets/warehouse-login.jpg") center / cover no-repeat;
+    url("../landing/assets/warehouse-login.jpg") center / cover no-repeat;
   animation: auth-background-drift 32s ease-in-out infinite alternate;
   will-change: transform;
 }

@@ -34,7 +34,7 @@ A PHP/MySQL inventory and sales application with separate administrator and staf
 2. Start Apache and MySQL.
 3. Configure the database connection in `config/connector.php`.
 4. Ensure the `ims` database is already initialized with the project schema and an administrator account.
-5. Open [http://localhost/IMS/login.php](http://localhost/IMS/login.php) to sign in.
+5. Open [http://localhost/IMS/](http://localhost/IMS/) for the landing page, or [http://localhost/IMS/signin.php](http://localhost/IMS/signin.php) to sign in.
 
 *The default connection settings target database `ims` on `localhost:3306`, user `root`, with an empty password. The application does not create or reset the database or administrator account.*
 
@@ -73,22 +73,24 @@ The SQL files are provided for database administration:
 
 ```text
 config/           Database connection
-assets/           Local images
-css/              Stylesheets
+assets/           Application JavaScript
+css/              Application and login stylesheets
 dashboard/        Administrator dashboard and actions
 includes/         Authentication, mail, shared helpers, invoices
-pages/            Public About and Contact pages
+landing/          Public home, About, Contact, styles, and images
 login/            Login, registration, password recovery
 sql/              Schema, foreign keys, migrations
 staff/            Staff dashboard and views
 views/            Shared administrator views
 dashboard.php     Administrator entry point
 staff_dashboard.php
-login.php         Authentication entry point
-install.php       Product landing page (kept at project root)
+index.php         Root landing-page entry point
+signin.php        Authentication entry point
+login.php         Redirects to the landing page
+landing/index.php Public product landing page
 ```
 
-*The warehouse login image and Unsplash retail photo used on the public landing page are stored locally in `assets/`; the pages do not fetch images from remote hosts at runtime.*
+*Landing-page images are stored locally in `landing/assets/`; the pages do not fetch images from remote hosts at runtime. The warehouse image is also used by the login page.*
 
 ---
 

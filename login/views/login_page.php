@@ -111,7 +111,7 @@ $pageTitle =
     ========================================================== -->
 
     <form
-        action="login.php?action=<?php
+        action="signin.php?action=<?php
             echo htmlspecialchars(
                 $mode
             );
@@ -455,13 +455,13 @@ $pageTitle =
                 </button>
                 <div class="auth-link-row">
                     <a
-                        href="login.php?action=register"
+                        href="signin.php?action=register"
                         class="sl"
                     >
                         Create account
                     </a>
                     <a
-                        href="login.php?action=forgot"
+                        href="signin.php?action=forgot"
                         class="fl"
                     >
                         Forgot password?
@@ -477,7 +477,7 @@ $pageTitle =
                     Create Account
                 </button>
                 <a
-                    href="login.php?action=login"
+                    href="signin.php?action=login"
                     class="sl"
                 >
                     Back to Login
@@ -493,7 +493,7 @@ $pageTitle =
                     Send OTP
                 </button>
                 <a
-                    href="login.php?action=login"
+                    href="signin.php?action=login"
                     class="sl"
                 >
                     Back to Login
@@ -509,7 +509,7 @@ $pageTitle =
                     Verify OTP
                 </button>
                 <a
-                    href="login.php?action=forgot&restart=1"
+                    href="signin.php?action=forgot&restart=1"
                     class="sl"
                 >
                     Back
@@ -525,7 +525,7 @@ $pageTitle =
                     Reset Password
                 </button>
                 <a
-                    href="login.php?action=login"
+                    href="signin.php?action=login"
                     class="sl"
                 >
                     Back to Login
