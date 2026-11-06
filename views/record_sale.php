@@ -30,17 +30,17 @@ foreach ($customers ?? [] as $customer) {
             <div class="form-grid">
                 <div class="form-group">
                     <label>Customer Name <span class="req">*</span></label>
-                    <div class="customer-select-wrap">
-                        <input type="text" id="customer_name" name="customer_name" class="customer-select-input" autocomplete="off"
-                               value="<?php echo htmlspecialchars($_POST['customer_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                        <div class="pid-list" id="customerList"></div>
-                    </div>
+                    <input type="text" id="customer_name" name="customer_name"
+                           value="<?php echo htmlspecialchars($_POST['customer_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                 </div>
 
                 <div class="form-group">
-                    <label>Customer Phone</label>
-                    <input type="text" name="customer_phone"
+                    <label>Phone</label>
+                    <div class="customer-select-wrap">
+                        <input type="text" id="customer_phone" name="customer_phone" class="customer-select-input" autocomplete="off"
                            value="<?php echo htmlspecialchars($_POST['customer_phone'] ?? ''); ?>">
+                        <div class="pid-list" id="customerList"></div>
+                    </div>
                 </div>      
 
                 <div class="form-group full">
@@ -116,18 +116,18 @@ foreach ($customers ?? [] as $customer) {
             var qEl   = document.getElementById('quantity');
             var prev  = document.getElementById('tax-preview');
             var customerName = document.getElementById('customer_name');
+            var customerPhone = document.getElementById('customer_phone');
             var customerList = document.getElementById('customerList');
-            var customerPhone = document.querySelector('[name="customer_phone"]');
-            var selectedCustomerName = null;
+            var selectedCustomerPhone = null;
 
             function closeCustomerList() {
                 customerList.style.display = 'none';
             }
 
             function renderCustomerList() {
-                var query = customerName.value.trim().toLowerCase();
+                var query = customerPhone.value.trim().toLowerCase();
                 var matches = existingCustomers.filter(function (customer) {
-                    return !query || customer.name.toLowerCase().includes(query);
+                    return customer.phone && (!query || customer.phone.toLowerCase().includes(query));
                 });
 
                 customerList.innerHTML = '';
@@ -141,23 +141,21 @@ foreach ($customers ?? [] as $customer) {
                     button.type = 'button';
                     button.className = 'pid-item';
 
+                    var phone = document.createElement('span');
+                    phone.className = 'pid-code';
+                    phone.textContent = customer.phone;
+                    button.appendChild(phone);
+
                     var name = document.createElement('span');
-                    name.className = 'pid-code';
+                    name.className = 'pid-meta';
                     name.textContent = customer.name;
                     button.appendChild(name);
-
-                    if (customer.phone) {
-                        var phone = document.createElement('span');
-                        phone.className = 'pid-meta';
-                        phone.textContent = customer.phone;
-                        button.appendChild(phone);
-                    }
 
                     button.addEventListener('mousedown', function (event) {
                         event.preventDefault();
                         customerName.value = customer.name;
                         customerPhone.value = customer.phone;
-                        selectedCustomerName = customer.name;
+                        selectedCustomerPhone = customer.phone;
                         closeCustomerList();
                     });
                     customerList.appendChild(button);
@@ -165,11 +163,11 @@ foreach ($customers ?? [] as $customer) {
                 customerList.style.display = 'block';
             }
 
-            customerName.addEventListener('focus', renderCustomerList);
-            customerName.addEventListener('input', function () {
-                if (selectedCustomerName !== null && customerName.value !== selectedCustomerName) {
-                    customerPhone.value = '';
-                    selectedCustomerName = null;
+            customerPhone.addEventListener('focus', renderCustomerList);
+            customerPhone.addEventListener('input', function () {
+                if (selectedCustomerPhone !== null && customerPhone.value !== selectedCustomerPhone) {
+                    customerName.value = '';
+                    selectedCustomerPhone = null;
                 }
                 renderCustomerList();
             });
