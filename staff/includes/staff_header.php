@@ -36,7 +36,8 @@ $view = $view ?? 'list';
             </a>
         </nav>
         <div class="sidebar-footer">
-            <a href="signin.php?action=logout" class="nav-link logout">Logout</a>
+            <a href="signin.php?action=logout" class="nav-link logout" style="justify-content: center;">Logout</a>
+            <a href="index.php" class="nav-link back-to-site" style="justify-content: center;">← Back to website</a>
         </div>
     </aside>
     <main class="main">
