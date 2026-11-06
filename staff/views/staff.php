@@ -5,7 +5,7 @@
  * Requires: $staffUsers (array), $editStaff (array|null)
  */
 ?>
-<link rel="stylesheet" href="css/staff.css?v=6">
+<link rel="stylesheet" href="css/staff.css?v=7">
 
 <div class="staff-management">
 <!-- ═══════ Add Staff ═══════ -->

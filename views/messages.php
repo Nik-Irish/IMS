@@ -35,7 +35,7 @@ $showAlerts = $showAlerts ?? false;
 <?php endif; ?>
 
 <!-- View-specific styles (alert banner) -->
-<link rel="stylesheet" href="css/banner.css?v=2">
+<link rel="stylesheet" href="css/banner.css?v=3">
 
 <?php if (!empty($bannerNotes) && $showAlerts && $view !== 'notifications'): ?>
     <div class="notif-banner <?php echo in_array('low_stock', array_column($bannerNotes, 'type'), true) ? 'notif-banner-low-stock' : ''; ?>">

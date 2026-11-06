@@ -66,16 +66,6 @@ body {
   color: #86efac;
 }
 
-/* ── Responsive (shell) ──────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .app {
-    flex-direction: column;
-  }
-  .main {
-    padding: 1rem 0.75rem 1.5rem;
-  }
-}
-
 /* ── Print ───────────────────────────────────────────────────────────────── */
 @media print {
   body {

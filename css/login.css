@@ -16,7 +16,6 @@
 
 body {
   min-height: 100vh;
-  min-height: 100svh;
   display: flex;
   font-family: "Segoe UI", system-ui, sans-serif;
   color: var(--auth-fg);
@@ -28,7 +27,6 @@ body {
   display: grid;
   width: 100%;
   min-height: 100vh;
-  min-height: 100svh;
   overflow: hidden;
   background: #291B3A;
 }
@@ -40,7 +38,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  min-height: 100svh;
   padding: clamp(24px, 5vw, 64px);
 }
 
@@ -262,58 +259,5 @@ body {
     animation: none;
     transform: scale(1.04);
     will-change: auto;
-  }
-}
-
-@media (max-width: 820px) {
-  .auth-main {
-    padding: 24px;
-  }
-
-  .lc {
-    max-width: 440px;
-  }
-}
-
-@media (max-height: 760px) {
-  .auth-main {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
-  .lc {
-    padding-top: 26px;
-    padding-bottom: 26px;
-  }
-
-  .sub {
-    margin-bottom: 24px;
-  }
-
-  .fg {
-    margin-bottom: 13px;
-  }
-
-  .fa {
-    margin-top: 18px;
-  }
-}
-
-@media (max-width: 480px) {
-  .auth-main {
-    padding: 18px;
-  }
-
-  .lc {
-    padding: 28px 24px;
-    border-radius: 14px;
-  }
-
-  .lc-compact {
-    padding: 24px 20px;
-  }
-
-  .auth-link-row {
-    gap: 10px;
   }
 }

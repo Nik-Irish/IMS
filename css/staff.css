@@ -268,24 +268,3 @@
 .edit-pw-wrap input {
   width: 100%;
 }
-
-/* ── Responsive ──────────────────────────────────────────────────────────── */
-@media (max-width: 760px) {
-  .staff-management .add-staff-card {
-    padding: 1.1rem 0.9rem;
-  }
-  .staff-directory-heading {
-    padding: 0.8rem;
-  }
-  .staff-directory {
-    overflow-x: auto;
-  }
-  .inline-edit-form {
-    align-items: stretch;
-    flex-direction: column;
-  }
-  .edit-username,
-  .edit-pw-wrap {
-    width: 100%;
-  }
-}

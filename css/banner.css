@@ -294,29 +294,3 @@
   color: #68798A;
   font-size: 0.82rem;
 }
-
-@media (max-width: 640px) {
-  .alert-card-heading,
-  .alert-card-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .alert-card-heading {
-    gap: 0.4rem;
-  }
-
-  .alert-card-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .notif-banner-list li {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .notif-product-link {
-    margin-left: 2.4rem;
-  }
-}
