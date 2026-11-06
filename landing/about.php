@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="theme-color" content="#F5F6F2">
-    <title>About IMS Nepal</title>
-    <link rel="stylesheet" href="css/landing.css?v=1">
-</head>
-<body class="info-page about-page">
-    <header>
-        <div class="product-header">
-            <div class="product-header-inner">
-                <a class="wordmark" href="index.php" aria-label="IMS Nepal home">
-                    <span>IMS <span class="wordmark-light">Nepal</span></span>
-                </a>
-                <nav class="site-nav" aria-label="IMS Nepal">
-                    <a href="index.php">Home</a>
-                    <a href="about.php" aria-current="page">About</a>
-                    <a href="contact.php">Contact</a>
-                </nav>
-                <div class="header-actions">
-                    <a class="sign-in-link" href="../signin.php">Sign in</a>
-                    <a class="button button-small" href="../signin.php?action=register">Create account</a>
-                </div>
-            </div>
-        </div>
-    </header>
+<?php
+$pageTitle = 'About IMS Nepal';
+$currentPage = 'about';
+$bodyClass = 'info-page about-page';
+require __DIR__ . '/includes/header.php';
+?>
 
     <main>
         <section class="info-hero about-hero">
@@ -71,22 +50,4 @@
         </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-brand">
-            <a class="wordmark footer-wordmark" href="index.php">IMS Nepal</a>
-            <p>Products, stock, sales, and reports in one place.</p>
-        </div>
-        <div class="footer-contact">
-            <span class="footer-contact-title">CONTACT</span>
-            <a href="tel:+9779842020363">+977 9842020363</a>
-            <a href="mailto:sales@IMS.com">sales@IMS.com</a>
-        </div>
-        <div class="footer-links">
-            <a href="index.php">Home</a>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
-            <a href="../signin.php">Sign in</a>
-        </div>
-    </footer>
-</body>
-</html>
+<?php require __DIR__ . '/includes/footer.php'; ?>
