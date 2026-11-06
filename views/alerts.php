@@ -16,7 +16,7 @@
             </button>
         </form>
         <form method="POST" action="dashboard.php?view=notifications"
-              onsubmit="return confirm('Delete all alerts? This cannot be undone.');">
+              data-confirm="Delete all alerts? This cannot be undone.">
             <button type="submit" name="action" value="clear_notifications"
                     class="btn btn-danger">
                 Delete All Alerts
@@ -69,7 +69,7 @@
                                     <button type="submit" class="btn btn-sm btn-secondary">Mark as read</button>
                                 </form>
                             <?php endif; ?>
-                            <form method="POST" onsubmit="return confirm('Delete this alert?');">
+                            <form method="POST" data-confirm="Delete this alert?">
                                 <input type="hidden" name="action" value="delete_notification">
                                 <input type="hidden" name="id" value="<?php echo (int)$n['id']; ?>">
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>

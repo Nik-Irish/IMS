@@ -115,7 +115,7 @@ $filtered = $filtered ?? [];
                         <a href="dashboard.php?view=edit&id=<?php echo (int)$p['id']; ?>"
                            class="btn btn-sm btn-secondary">Edit</a>
                         <form method="POST" class="inline-form"
-                              onsubmit="return confirm('Delete this product?');">
+                              data-confirm="Delete this product?">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id"     value="<?php echo (int)$p['id']; ?>">
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>

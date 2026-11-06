@@ -17,6 +17,7 @@ $view = $view ?? 'list';
     <link rel="stylesheet" href="css/components.css?v=1">
     <link rel="stylesheet" href="css/theme.css?v=26">
     <link rel="stylesheet" href="css/products.css?v=7">
+    <script src="assets/js/dashboard.js?v=1" defer></script>
 </head>
 <body>
 <div class="app">

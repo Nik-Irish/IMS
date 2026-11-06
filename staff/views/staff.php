@@ -119,7 +119,7 @@ $staffCountLabel = $staffCount === 1 ? 'account' : 'accounts';
                             <a href="dashboard.php?view=staff&amp;edit=<?php echo $sid; ?>"
                                class="btn btn-sm btn-secondary">Edit</a>
                             <form method="POST" class="inline-form"
-                                  onsubmit="return confirm('Delete staff user &quot;<?php echo htmlspecialchars($st['username']); ?>&quot;?');">
+                                  data-confirm="<?php echo htmlspecialchars('Delete staff user "' . $st['username'] . '"?', ENT_QUOTES, 'UTF-8'); ?>">
                                 <input type="hidden" name="action" value="staff_delete">
                                 <input type="hidden" name="id" value="<?php echo $sid; ?>">
                                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -134,20 +134,3 @@ $staffCountLabel = $staffCount === 1 ? 'account' : 'accounts';
     <?php endif; ?>
 </section>
 </div>
-
-<!-- ═══════ Scripts: password visibility ═══════ -->
-<script>
-document.querySelectorAll('.pw-toggle').forEach(function (button) {
-    button.addEventListener('click', function () {
-        var target = document.getElementById(button.dataset.target);
-        if (!target) return;
-        if (target.type === 'password') {
-            target.type = 'text';
-            button.textContent = 'Hide';
-        } else {
-            target.type = 'password';
-            button.textContent = 'Show';
-        }
-    });
-});
-</script>

@@ -27,6 +27,7 @@ function downloadInvoicePdf(array $sale): void {
 <head>
     <meta charset="UTF-8">
     <title>Invoice <?php echo $billNo; ?></title>
+    <script src="assets/js/invoice.js?v=1" defer></script>
     <style>
         body { font-family: monospace; max-width: 400px; margin: 2rem auto; padding: 1rem; color: #000; }
         h2 { text-align: center; margin: 0; }
@@ -85,11 +86,9 @@ function downloadInvoicePdf(array $sale): void {
 <p class="center small">Thank you for your business!</p>
 
 <div class="actions">
-    <button onclick="window.print()">Print / Save PDF</button>
-    <a href="javascript:history.back()">Back</a>
+    <button type="button" data-print-invoice>Print / Save PDF</button>
+    <button type="button" data-history-back>Back</button>
 </div>
-
-<script>window.onload = () => window.print();</script>
 </body>
 </html>
 <?php
