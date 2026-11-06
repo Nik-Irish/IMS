@@ -88,7 +88,7 @@ login.php         Authentication entry point
 install.php       Product landing page (kept at project root)
 ```
 
-*The warehouse login image is stored locally; the page does not fetch it at runtime.*
+*The warehouse login image and Unsplash retail photo used on the public landing page are stored locally in `assets/`; the pages do not fetch images from remote hosts at runtime.*
 
 ---
 
