@@ -8,8 +8,6 @@
 $staffCount = count($staffUsers);
 $staffCountLabel = $staffCount === 1 ? 'account' : 'accounts';
 ?>
-<link rel="stylesheet" href="css/staff.css?v=7">
-
 <div class="staff-management">
 <!-- ═══════ Add Staff ═══════ -->
 <div class="form-card add-staff-card">

@@ -12,11 +12,7 @@ $view = $view ?? 'list';
 <head>
     <meta charset="UTF-8">
     <title><?php echo htmlspecialchars($pageTitle); ?> | IMS Nepal Staff</title>
-    <link rel="stylesheet" href="css/base.css?v=1">
-    <link rel="stylesheet" href="css/sidebar.css?v=4">
-    <link rel="stylesheet" href="css/components.css?v=1">
-    <link rel="stylesheet" href="css/theme.css?v=26">
-    <link rel="stylesheet" href="css/products.css?v=7">
+    <link rel="stylesheet" href="css/app.css?v=1">
     <script src="assets/js/dashboard.js?v=1" defer></script>
 </head>
 <body>
