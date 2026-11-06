@@ -15,11 +15,7 @@ require_once __DIR__ . '/dashboard/handlers.php';
 require_once __DIR__ . '/dashboard/filters.php';
 require_once __DIR__ . '/dashboard/stats.php';
 
-$customers = [];
-
-if ($view === 'sale_add') {
-    $customers = getCustomers($pdo);
-}
+$customers = $view === 'sale_add' ? getCustomers($pdo) : [];
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/views/messages.php';
@@ -43,9 +39,8 @@ if (isset($viewMap[$view])) {
     if (file_exists($viewFile)) {
         require $viewFile;
     } else {
-        $safePath = htmlspecialchars($relativePath, ENT_QUOTES, 'UTF-8');
         echo '<div class="msg msg-error">View file not found: '
-            . $safePath
+            . htmlspecialchars($relativePath, ENT_QUOTES, 'UTF-8')
             . '</div>';
     }
 }
